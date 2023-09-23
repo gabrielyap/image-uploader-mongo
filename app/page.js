@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import Axios from 'axios'
 import { Image } from "cloudinary-react"
 import UploadScreen from "./components/UploadScreen"
@@ -12,7 +12,16 @@ export default function Home() {
   const [before, setBefore] = useState(true);
   const [loading, setLoading] = useState(false);
   const [after, setAfter] = useState(false);
-
+  useEffect(() => {
+    Axios.get("http://localhost:8000/api/home")
+    .then((re) => {
+      console.log('successfully got: +', re)
+      }
+    )
+    .catch((e) => {
+      console.log('error: ' + e)
+    })
+  }, [])
   return (
     <main className="flex min-h-screen flex-col 
     items-center justify-center p-24
