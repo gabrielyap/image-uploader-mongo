@@ -3,9 +3,9 @@
 import React, {useState} from "react"
 import Axios from 'axios'
 import { Image } from "cloudinary-react"
-import UploadScreen from "./UploadScreen"
-import LoadingScreen from "./LoadingScreen"
-import FinalScreen from "./FinalScreen"
+import UploadScreen from "./components/UploadScreen"
+import LoadingScreen from "./components/LoadingScreen"
+import FinalScreen from "./components/FinalScreen"
 
 export default function Home() {
   const [imageUrl, setImageUrl] = useState('')
