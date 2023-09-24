@@ -24,7 +24,7 @@ export default function UploadScreen({imageUrl, setImageUrl, setBefore, setLoadi
 
     await Axios.post("http://localhost:8000/api/upload", url)
     .then((re) => {
-      console.log(`Got response ${re} and sent ${url} to localhost`)
+      //console.log(`Got response ${re} and sent ${url} to localhost`)
     })
     .catch((err) => {
       window.alert("Error: " + err)

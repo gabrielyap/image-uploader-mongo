@@ -16,12 +16,14 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true })); // Needed to parse urls
 
 app.post("/api/upload", (req, res) => {
+    console.log('api upload req.body: ', req.body)
+    const url = Object.keys(req.body)[0];
+    console.log("url: ", url)
     const image = new Image({
-        imageLink: JSON.stringify(req.body),
+        imageLink: url,
     })
     image.save()
-    console.log("Saved image with req.body: ", req.body)
-    res.status(200).send(`received ${req.body}`)
+    res.status(200).send(`received ${url}`)
 })
 
 app.get("/api/getlinks", async (req, res) => {
@@ -29,15 +31,6 @@ app.get("/api/getlinks", async (req, res) => {
     //console.log("Sending this to client: ", links)
     res.json(links)
 })
-
-// app.get("/api/home", (req, res) => {
-//     const image = new Image({
-//         imageLink: "https://static.miraheze.org/greatcharacterswiki/f/fb/Gfhdfhddghhkfgh.png"
-//     })
-//     image.save()
-//     res.send("send image of gir")
-// })
-
 
 app.listen(8000, () => {
     console.log("Server started on port 8000")

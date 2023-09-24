@@ -14,9 +14,8 @@ export default function FinalScreen({imageUrl}){
         console.log("Sending GET request to /getlinks")
         Axios.get("http://localhost:8000/api/getlinks")
         .then((re) => {
-            console.log('Got re from server: ', re)
-            //const parsedRe = JSON.parse(re)
-            console.log('re.data: ', re.data)
+            // console.log('Got re from server: ', re)
+            // console.log('re.data: ', re.data)
             setImageLinks(re.data)
         })
         .catch((err) => {
@@ -34,11 +33,12 @@ export default function FinalScreen({imageUrl}){
                 <button className = "bg-blue-500 rounded-2xl p-4 text-white cursor-pointer" onClick = {() => copyInput()}>Copy Link</button>
             </div>
             <div>
-                <button className = "bg-blue-500 rounded-2xl p-4 text-white cursor-pointer" onClick = {() => getLinks()}>Get all image links</button>
+                <button className = "bg-blue-500 rounded-2xl p-4 text-white cursor-pointer" onClick = {() => getLinks()}>Get all images</button>
             </div>
 
             {imageLinks.map((item, index) => (
-                <div key = {index}>{item.imageLink}</div>
+                <img src = {item.imageLink} key = {index}/>
+                // <div key = {index}>{item.imageLink}</div>
             ))}
         </div>
         
