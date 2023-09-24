@@ -4,19 +4,27 @@ import React, {useState} from "react"
 import Axios from 'axios'
 import { Image } from "cloudinary-react"
 export default function UploadScreen({imageUrl, setImageUrl, setBefore, setLoading, setAfter}) {
-  const uploadImage = (files) => {
+  const uploadImage = async(files) => {
     setBefore(false)
     setLoading(true)
     const formData = new FormData()
     formData.append("file", files[0])
     formData.append("upload_preset", "yismpedw")
-    Axios.post("https://api.cloudinary.com/v1_1/dnyt3b1h3/image/upload", formData)
+    let url = ''
+    await Axios.post("https://api.cloudinary.com/v1_1/dnyt3b1h3/image/upload", formData)
     .then((re) => {
       setLoading(false)
       setAfter(true)
       setImageUrl(re.data.url)
-      console.log(re)
-      console.log(re.data.url)
+      url = re.data.url
+    })
+    .catch((err) => {
+      window.alert("Error: " + err)
+    })
+
+    await Axios.post("http://localhost:8000/api/upload", url)
+    .then((re) => {
+      console.log(`Got response ${re} and sent ${url} to localhost`)
     })
     .catch((err) => {
       window.alert("Error: " + err)
