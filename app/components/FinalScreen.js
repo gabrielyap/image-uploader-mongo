@@ -12,7 +12,7 @@ export default function FinalScreen({imageUrl}){
     }
 
     const getImages = () => {
-        console.log("Sending GET request to /getImages")
+        //console.log("Sending GET request to /getImages")
         Axios.get("http://localhost:8000/api/getImages")
         .then((re) => {
             // console.log('Got re from server: ', re)
@@ -56,8 +56,9 @@ export default function FinalScreen({imageUrl}){
                 {allImages.map((item, index) => (
                     <div className = "relative m-auto" key = {index}>
                         <img src = {item.imageLink} key = {index} className = ""/>
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 bg-black bg-opacity-50 hover:opacity-100">
-                        <span className="text-white">{item.label}</span>
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 bg-black bg-opacity-50 cursor-pointer hover:opacity-100" onClick = {()=>console.log(item._id)}>
+                            <span className="text-white">{item.label}</span>
+                            <button className="absolute top-0 right-0 px-1 text-white bg-red-500">X</button>
                         </div>
                     </div>
                 ))}
