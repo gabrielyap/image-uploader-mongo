@@ -27,7 +27,7 @@ app.post("/api/upload", (req, res) => {
     res.status(200).send(`received ${req.body}`)
 })
 
-app.get("/api/getlinks", async (req, res) => {
+app.get("/api/getImages", async (req, res) => {
     const links = await Image.find({})
     //console.log("Sending this to client: ", links)
     res.json(links)
