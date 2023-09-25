@@ -3,6 +3,7 @@ const app = express()
 const mongoose = require('mongoose')
 const cors = require('cors')
 const Image = require('./models/image')
+const bodyParser = require('body-parser')
 
 mongoose.connect('mongodb://localhost:27017/image-uploader')
 
@@ -14,19 +15,19 @@ db.once("open", () => {
 
 app.use(cors())
 app.use(express.urlencoded({ extended: true })); // Needed to parse urls
+app.use(bodyParser.json())
 
 app.post("/api/upload", (req, res) => {
-    console.log('api upload req.body: ', req.body)
-    const url = Object.keys(req.body)[0];
-    console.log("url: ", url)
+    console.log('api/upload req.body: ', req.body)
     const image = new Image({
-        imageLink: url,
+        imageLink: req.body.imageLink,
+        label: req.body.label,
     })
     image.save()
-    res.status(200).send(`received ${url}`)
+    res.status(200).send(`received ${req.body}`)
 })
 
-app.get("/api/getlinks", async (req, res) => {
+app.get("/api/getImages", async (req, res) => {
     const links = await Image.find({})
     //console.log("Sending this to client: ", links)
     res.json(links)
