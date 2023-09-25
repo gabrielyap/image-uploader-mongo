@@ -3,7 +3,8 @@ import { Image } from "cloudinary-react"
 import Axios from "axios"
 
 export default function FinalScreen({imageUrl}){
-    const [imageLinks, setImageLinks] = useState([])
+    const [allImages, setAllImages] = useState([])
+    const [searchValue, setSearchValue] = useState('')
     const copyInput = () => {
         const copyText = document.getElementById("myInput");
         copyText.select()
@@ -16,11 +17,16 @@ export default function FinalScreen({imageUrl}){
         .then((re) => {
             // console.log('Got re from server: ', re)
             // console.log('re.data: ', re.data)
-            setImageLinks(re.data)
+            setAllImages(re.data)
         })
         .catch((err) => {
             window.alert(`Error: ${err}`)
         })
+    }
+
+    const handleSearch = () => {
+        const filtered = allImages.filter((item) => item.label === searchValue)
+        setAllImages(filtered)
     }
 
     return(
@@ -33,11 +39,13 @@ export default function FinalScreen({imageUrl}){
                 <button className = "bg-blue-500 rounded-2xl p-4 text-white cursor-pointer" onClick = {() => copyInput()}>Copy Link</button>
             </div>
             <div>
+                <input type = "text" id = "search" className = "outline-blue-200 outline px-1" placeholder = "Search..." onChange = {(e) => setSearchValue(e.target.value)}/>
+                <button className = "bg-blue-500 rounded-2xl p-4 text-white cursor-pointer my-4" onClick = {() => handleSearch()}>Search</button>
                 <button className = "bg-blue-500 rounded-2xl p-4 text-white cursor-pointer my-4" onClick = {() => getLinks()}>Get all images</button>
             </div>
 
             <div className = "grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-                {imageLinks.map((item, index) => (
+                {allImages.map((item, index) => (
                     <img src = {item.imageLink} key = {index} className = "m-auto"/>
                 ))}
             </div>
