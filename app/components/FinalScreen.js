@@ -33,13 +33,14 @@ export default function FinalScreen({imageUrl}){
                 <button className = "bg-blue-500 rounded-2xl p-4 text-white cursor-pointer" onClick = {() => copyInput()}>Copy Link</button>
             </div>
             <div>
-                <button className = "bg-blue-500 rounded-2xl p-4 text-white cursor-pointer" onClick = {() => getLinks()}>Get all images</button>
+                <button className = "bg-blue-500 rounded-2xl p-4 text-white cursor-pointer my-4" onClick = {() => getLinks()}>Get all images</button>
             </div>
 
-            {imageLinks.map((item, index) => (
-                <img src = {item.imageLink} key = {index}/>
-                // <div key = {index}>{item.imageLink}</div>
-            ))}
+            <div className = "grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+                {imageLinks.map((item, index) => (
+                    <img src = {item.imageLink} key = {index} className = "m-auto"/>
+                ))}
+            </div>
         </div>
         
     );
