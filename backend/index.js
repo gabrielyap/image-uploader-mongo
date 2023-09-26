@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true })); // Needed to parse urls
 app.use(bodyParser.json())
 
 app.post("/api/upload", (req, res) => {
-    console.log('api/upload req.body: ', req.body)
+    //console.log('api/upload req.body: ', req.body)
     const image = new Image({
         imageLink: req.body.imageLink,
         label: req.body.label,
@@ -31,6 +31,16 @@ app.get("/api/getImages", async (req, res) => {
     const links = await Image.find({})
     //console.log("Sending this to client: ", links)
     res.json(links)
+})
+
+app.put("/api/update/:id", async (req, res) => {
+    const { id } = req.params
+    await Image.findByIdAndUpdate(id, {label: req.body.label})
+})
+
+app.delete("/api/delete/:id", async (req, res) => {
+    const { id } = req.params
+    await Image.findByIdAndDelete(id)
 })
 
 app.listen(8000, () => {

@@ -5,6 +5,8 @@ import Axios from "axios"
 export default function FinalScreen({imageUrl}){
     const [allImages, setAllImages] = useState([])
     const [searchValue, setSearchValue] = useState('')
+    const [editMode, setEditMode] = useState(false)
+    const [editedLabel, setEditedLabel] = useState('')
     const copyInput = () => {
         const copyText = document.getElementById("myInput");
         copyText.select()
@@ -34,9 +36,36 @@ export default function FinalScreen({imageUrl}){
         
     }
 
+    const handleDelete = async (id) => {
+        await Axios.delete(`http://localhost:8000/api/delete/${id}`)
+        .then((re) => {
+            getImages()
+        })
+        .catch((err) => {
+            window.alert(`Error: ${err}`)
+        })
+    }
+
+    const handleEdit = async (id, newLabel) => {
+        setEditMode(false)
+        setEditedLabel('')
+        await Axios.put(`http://localhost:8000/api/update/${id}`, {label: newLabel})
+        .then((re) => {
+            getImages()
+        })
+        .catch((err) => {
+            window.alert(`Error: ${err}`)
+        })
+    }
+
+    const exitImage = () =>{
+        setEditMode(false)
+        setEditedLabel('')
+    }
+
     useEffect(() => {
         getImages()
-    },[])
+    },[allImages])
 
     return(
         <div className = "flex flex-col items-center bg-zinc-50 p-6 rounded-lg shadow-lg max-w-2xl">
@@ -55,10 +84,31 @@ export default function FinalScreen({imageUrl}){
             <div className = "grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
                 {allImages.map((item, index) => (
                     <div className = "relative m-auto" key = {index}>
-                        <img src = {item.imageLink} key = {index} className = ""/>
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 bg-black bg-opacity-50 cursor-pointer hover:opacity-100" onClick = {()=>console.log(item._id)}>
-                            <span className="text-white">{item.label}</span>
-                            <button className="absolute top-0 right-0 px-1 text-white bg-red-500">X</button>
+                        <img src = {item.imageLink} key = {index} className = "" />
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 bg-black bg-opacity-50 cursor-pointer hover:opacity-100" onMouseEnter = {() => setEditedLabel(item.label)} onMouseLeave={() => exitImage()}>
+                            { editMode ? (
+                                    <input
+                                    className = "w-24"
+                                    type="text"
+                                    value={editedLabel}
+                                    onChange={(e) => setEditedLabel(e.target.value)}
+                                    onKeyDown = {(e) => {
+                                        if (e.key === 'Enter'){
+                                            handleEdit(item._id, editedLabel)
+                                        }
+                                    }}
+                                    />
+                                ): (
+                                    <span className="text-white" onClick={() => {
+                                        setEditMode(true) 
+                                        setEditedLabel(item.label)}
+                                        }>{item.label}</span>
+                                )
+
+                            }
+                            
+                            <button className="absolute top-0 right-0 px-1 text-white bg-red-500" onClick = {() => handleDelete(item._id)}>X</button>
+                            <button className="absolute top-0 left-0 px-1 text-white bg-blue-500" onClick = {() => setEditMode(true)}>EDIT</button>
                         </div>
                     </div>
                 ))}
