@@ -3,7 +3,7 @@
 import React, {useState} from "react"
 import Axios from 'axios'
 import { Image } from "cloudinary-react"
-export default function UploadScreen({imageUrl, setImageUrl, setBefore, setLoading, setAfter}) {
+export default function UploadScreen({imageUrl, setImageUrl, setBefore, setLoading, setAfter, setHasUploaded}) {
   const [inputValue, setInputValue] = useState('');
   
   const uploadImage = async(files) => {
@@ -16,6 +16,7 @@ export default function UploadScreen({imageUrl, setImageUrl, setBefore, setLoadi
     await Axios.post("https://api.cloudinary.com/v1_1/dnyt3b1h3/image/upload", formData) // POST to axios to get image url first
     .then((re) => {
       setLoading(false)
+      setHasUploaded(true)
       setAfter(true)
       setImageUrl(re.data.url)
       url = re.data.url
@@ -42,10 +43,10 @@ export default function UploadScreen({imageUrl, setImageUrl, setBefore, setLoadi
   }
 
   const dropHandler = (e) => {
-    console.log("File(s) dropped");
+    //console.log("File(s) dropped");
     // Prevent default behavior (Prevent file from being opened)
     e.preventDefault();
-    console.log("e.dataTransfer.files:" + e.dataTransfer.files)
+    //console.log("e.dataTransfer.files:" + e.dataTransfer.files)
     uploadImage(e.dataTransfer.files)
   }
 
@@ -53,14 +54,21 @@ export default function UploadScreen({imageUrl, setImageUrl, setBefore, setLoadi
     setInputValue(event.target.value);
   };
 
+  const redirectFinal = () => {
+    setBefore(false)
+    setHasUploaded(false)
+    setAfter(true)
+}
+
   function dragOverHandler(e) {
-    console.log("File(s) in drop zone");
+    //console.log("File(s) in drop zone");
     // Prevent default behavior (Prevent file from being opened)
     e.preventDefault();
   }
 
     return(
       <div className = "flex flex-col items-center bg-zinc-50 p-6 rounded-lg shadow-lg ">
+      <button className = "bg-blue-600 rounded-2xl p-4 text-white cursor-pointer ml-auto" onClick = {() => redirectFinal()}>View Gallery</button>
       <h1 className = "font-semibold font-poppins text-stone-900 text-2xl mt-4">Upload your image </h1>
       <h3 className = "font-poppins text-stone-500 text-1xl my-4">File should be Jpeg, Png...</h3>
       <input type = "text" id = "labelName" className = "outline-blue-200 outline px-1" placeholder = "Label Name (optional)" onChange = {(e) => handleChange(e)}/>
