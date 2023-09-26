@@ -7,17 +7,18 @@ export default function FinalScreen({imageUrl}){
     const [searchValue, setSearchValue] = useState('')
     const [editMode, setEditMode] = useState(false)
     const [editedLabel, setEditedLabel] = useState('')
+    
     const copyInput = () => {
         const copyText = document.getElementById("myInput");
         copyText.select()
         navigator.clipboard.writeText(copyText.value)
     }
 
-    const getImages = () => {
-        //console.log("Sending GET request to /getImages")
-        Axios.get("http://localhost:8000/api/getImages")
+    const getImages = async() => {
+        //console.log("Sending GET request to api")
+        await Axios.get("http://localhost:8000/api")
         .then((re) => {
-            // console.log('Got re from server: ', re)
+            //console.log('Got re from server: ', re)
             // console.log('re.data: ', re.data)
             setAllImages(re.data)
         })
@@ -26,19 +27,23 @@ export default function FinalScreen({imageUrl}){
         })
     }
 
-    const handleSearch = () => {
-        if (searchValue === ''){
-            getImages()
-        } else {
-            const filtered = allImages.filter((item) => item.label === searchValue)
-            setAllImages(filtered)
+    const handleSearch = async() => {
+        await getImages()
+        if (searchValue !== ''){
+            const filtered = await allImages.filter((item) => item.label === searchValue)
+            if (filtered.length == 0){
+                window.alert("No images with that label")
+            } else{
+                setAllImages(filtered)
+            }
         }
         
     }
 
     const handleDelete = async (id) => {
-        await Axios.delete(`http://localhost:8000/api/delete/${id}`)
+        await Axios.delete(`http://localhost:8000/api/${id}`)
         .then((re) => {
+            //console.log(re)
             getImages()
         })
         .catch((err) => {
@@ -49,7 +54,7 @@ export default function FinalScreen({imageUrl}){
     const handleEdit = async (id, newLabel) => {
         setEditMode(false)
         setEditedLabel('')
-        await Axios.put(`http://localhost:8000/api/update/${id}`, {label: newLabel})
+        await Axios.put(`http://localhost:8000/api/${id}`, {label: newLabel})
         .then((re) => {
             getImages()
         })
@@ -63,9 +68,19 @@ export default function FinalScreen({imageUrl}){
         setEditedLabel('')
     }
 
+    const copyLink = async(id) => {
+        await Axios.get(`http://localhost:8000/api/${id}`)
+        .then((re) => {
+            navigator.clipboard.writeText(re.data.imageLink)
+            window.alert("Link copied!")
+        }) .catch((err) => {
+            window.alert(err)
+        })
+    }
+
     useEffect(() => {
         getImages()
-    },[allImages])
+    },[])
 
     return(
         <div className = "flex flex-col items-center bg-zinc-50 p-6 rounded-lg shadow-lg max-w-2xl">
@@ -109,6 +124,7 @@ export default function FinalScreen({imageUrl}){
                             
                             <button className="absolute top-0 right-0 px-1 text-white bg-red-500" onClick = {() => handleDelete(item._id)}>X</button>
                             <button className="absolute top-0 left-0 px-1 text-white bg-blue-500" onClick = {() => setEditMode(true)}>EDIT</button>
+                            <button className="absolute bottom-0 left-0 px-1 text-white bg-blue-500" onClick = {() => copyLink(item._id)}>COPY</button>
                         </div>
                     </div>
                 ))}

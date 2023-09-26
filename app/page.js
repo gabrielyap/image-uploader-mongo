@@ -1,7 +1,6 @@
 "use client"
 
 import React, {useState, useEffect} from "react"
-import Axios from 'axios'
 import { Image } from "cloudinary-react"
 import UploadScreen from "./components/UploadScreen"
 import LoadingScreen from "./components/LoadingScreen"
@@ -15,7 +14,7 @@ export default function Home() {
   
   return (
     <main className="flex min-h-screen flex-col 
-    items-center justify-center p-24
+    items-center  p-24
     bg-gray-200">
 
       {before && <UploadScreen imageUrl = {imageUrl} setImageUrl = {setImageUrl} setBefore={setBefore} setLoading={setLoading} setAfter ={setAfter}/>}

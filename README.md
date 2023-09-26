@@ -1,6 +1,6 @@
 <!-- Please update value in the {}  -->
 
-<h1 align="center">Image Uploader</h1>
+<h1 align="center">Mongo Museum</h1>
 
 <div align="center">
    Solution for a challenge from  <a href="http://devchallenges.io" target="_blank">Devchallenges.io</a>.
@@ -32,6 +32,9 @@
 ![screenshot](sc_3.jpg)
 
 The project is available through the demo link above. I learned a lot about how to use Next.js to start a React project, as well as how to use Tailwind to stylize components. Also, I learned more about Axios and how I can use it to send requests to Cloudinary.
+
+Problems/Solved: I could not get functions to run after an Axios request, then I realized I had to send a res.status back from the server.
+Search would not work when search is invalid, then valid. Have to reset.
 
 ### Built With
 

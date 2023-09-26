@@ -17,7 +17,7 @@ app.use(cors())
 app.use(express.urlencoded({ extended: true })); // Needed to parse urls
 app.use(bodyParser.json())
 
-app.post("/api/upload", (req, res) => {
+app.post("/api", (req, res) => {
     //console.log('api/upload req.body: ', req.body)
     const image = new Image({
         imageLink: req.body.imageLink,
@@ -27,20 +27,26 @@ app.post("/api/upload", (req, res) => {
     res.status(200).send(`received ${req.body}`)
 })
 
-app.get("/api/getImages", async (req, res) => {
-    const links = await Image.find({})
-    //console.log("Sending this to client: ", links)
-    res.json(links)
+app.get("/api", async (req, res) => {
+    const images = await Image.find({})
+    res.json(images)
 })
 
-app.put("/api/update/:id", async (req, res) => {
+app.get("/api/:id", async (req, res) => {
+    const { id } = req.params
+    const image = await Image.findById(id)
+    res.json(image)
+})
+
+app.put("/api/:id", async (req, res) => {
     const { id } = req.params
     await Image.findByIdAndUpdate(id, {label: req.body.label})
 })
 
-app.delete("/api/delete/:id", async (req, res) => {
+app.delete("/api/:id", async (req, res) => {
     const { id } = req.params
     await Image.findByIdAndDelete(id)
+    res.status(200).send(`Deleted ${id} successfully`)
 })
 
 app.listen(8000, () => {
