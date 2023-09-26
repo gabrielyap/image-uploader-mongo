@@ -21,7 +21,7 @@ export default function Home() {
       
       {loading && <LoadingScreen />}
 
-      {after && <FinalScreen imageUrl = {imageUrl}/>}
+      {after && <FinalScreen imageUrl = {imageUrl} setBefore = {setBefore} setAfter = {setAfter}/>}
 
       <footer className = "font-semibold font-poppins text-gray-500 text-1xl mt-4">Created by <a href = "https://github.com/gabrielyap">Gabriel Yap</a></footer>
     </main>
