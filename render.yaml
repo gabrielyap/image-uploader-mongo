@@ -1,0 +1,9 @@
+services:
+  - name: frontend
+    buildCommand: npm run build
+    directory: app
+
+  - name: backend
+    buildCommand: npm run build
+    directory: backend
+    startCommand: npm run dev
