@@ -47,6 +47,7 @@ app.get("/api/:id", async (req, res) => {
 app.put("/api/:id", async (req, res) => {
     const { id } = req.params
     await Image.findByIdAndUpdate(id, {label: req.body.label})
+    res.status(200).send(`edited ${id}`)
 })
 
 app.delete("/api/:id", async (req, res) => {
