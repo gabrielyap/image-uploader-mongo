@@ -35,6 +35,7 @@ The project is available through the demo link above. I learned a lot about how 
 
 Problems/Solved: I could not get functions to run after an Axios request, then I realized I had to send a res.status back from the server.
 Search would not work when search is invalid, then valid. Have to reset.
+Needed to add buttons to flip between upload and gallery. Had to set states/terniary operators for final screen if user uploaded or not.
 
 ### Built With
 
