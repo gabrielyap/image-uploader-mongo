@@ -16,7 +16,7 @@ export default function FinalScreen({imageUrl, setBefore, setAfter, hasUploaded,
 
     const getImages = async() => {
         //console.log("Sending GET request to api")
-        await Axios.get("http://localhost:8000/api")
+        await Axios.get("https://museum-server-wktu.onrender.com/api")
         .then((re) => {
             //console.log('Got re from server: ', re)
             // console.log('re.data: ', re.data)
@@ -41,7 +41,7 @@ export default function FinalScreen({imageUrl, setBefore, setAfter, hasUploaded,
     }
 
     const handleDelete = async (id) => {
-        await Axios.delete(`http://localhost:8000/api/${id}`)
+        await Axios.delete(`https://museum-server-wktu.onrender.com/api/${id}`)
         .then((re) => {
             //console.log(re)
             getImages()
@@ -54,7 +54,7 @@ export default function FinalScreen({imageUrl, setBefore, setAfter, hasUploaded,
     const handleEdit = async (id, newLabel) => {
         setEditMode(false)
         setEditedLabel('')
-        await Axios.put(`http://localhost:8000/api/${id}`, {label: newLabel})
+        await Axios.put(`https://museum-server-wktu.onrender.com/api/${id}`, {label: newLabel})
         .then((re) => {
             getImages()
         })
@@ -69,7 +69,7 @@ export default function FinalScreen({imageUrl, setBefore, setAfter, hasUploaded,
     }
 
     const copyLink = async(id) => {
-        await Axios.get(`http://localhost:8000/api/${id}`)
+        await Axios.get(`https://museum-server-wktu.onrender.com/api/${id}`)
         .then((re) => {
             navigator.clipboard.writeText(re.data.imageLink)
             window.alert("Link copied!")
