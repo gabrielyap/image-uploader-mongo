@@ -25,7 +25,7 @@ export default function UploadScreen({imageUrl, setImageUrl, setBefore, setLoadi
       window.alert("Error: " + err)
     })
 
-    await Axios.post("http://localhost:8000/api",  //POST to server to store url and label
+    await Axios.post("https://museum-server-wktu.onrender.com/api",  //POST to server to store url and label
     {
       imageLink: url,
       label: inputValue,
