@@ -23,7 +23,7 @@
 
 ## Overview
 
-![screenshot](./public/screenshot1.jpg)
+![screenshot](./public/screenshot.jpg)
 
 This is a fullstack image-hosting and sharing project. I built the backend with custom RESTful API to handle CRUD functions. I used MongoDB Atlas to store images in a cloud, and used Axios to create, read, update, and delete these images. For the client, I used Next.js for setup, React.js for the website, and used Tailwind for styling. I deployed the backend using Render, and the frontend using Vercel.
 
