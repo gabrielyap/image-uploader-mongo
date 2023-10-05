@@ -62,4 +62,6 @@ $ cd backend/npm run dev
 # Run the app
 $ npm run dev
 
+# Might have to restart the Render server every once in a while.
+
 ```
