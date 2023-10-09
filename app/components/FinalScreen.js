@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react"
 import { Image } from "cloudinary-react"
 import Axios from "axios"
 
-export default function FinalScreen({imageUrl, setBefore, setAfter, hasUploaded, setHasUploaded}){
+export default function FinalScreen({imageUrl, setBefore, setAfter, hasUploaded, setHasUploaded, setRegister}){
     const [allImages, setAllImages] = useState([])
     const [searchValue, setSearchValue] = useState('')
     const [editMode, setEditMode] = useState(false)
@@ -16,7 +16,7 @@ export default function FinalScreen({imageUrl, setBefore, setAfter, hasUploaded,
 
     const getImages = async() => {
         //console.log("Sending GET request to api")
-        await Axios.get("https://museum-server-wktu.onrender.com/api")
+        await Axios.get("http://localhost:8000/api")
         .then((re) => {
             //console.log('Got re from server: ', re)
             // console.log('re.data: ', re.data)
@@ -41,7 +41,7 @@ export default function FinalScreen({imageUrl, setBefore, setAfter, hasUploaded,
     }
 
     const handleDelete = async (id) => {
-        await Axios.delete(`https://museum-server-wktu.onrender.com/api/${id}`)
+        await Axios.delete(`http://localhost:8000/api/${id}`)
         .then((re) => {
             //console.log(re)
             getImages()
@@ -54,7 +54,7 @@ export default function FinalScreen({imageUrl, setBefore, setAfter, hasUploaded,
     const handleEdit = async (id, newLabel) => {
         setEditMode(false)
         setEditedLabel('')
-        await Axios.put(`https://museum-server-wktu.onrender.com/api/${id}`, {label: newLabel})
+        await Axios.put(`http://localhost:8000/api/${id}`, {label: newLabel})
         .then((re) => {
             getImages()
         })
@@ -69,7 +69,7 @@ export default function FinalScreen({imageUrl, setBefore, setAfter, hasUploaded,
     }
 
     const copyLink = async(id) => {
-        await Axios.get(`https://museum-server-wktu.onrender.com/api/${id}`)
+        await Axios.get(`http://localhost:8000/api/${id}`)
         .then((re) => {
             navigator.clipboard.writeText(re.data.imageLink)
             window.alert("Link copied!")
@@ -82,6 +82,11 @@ export default function FinalScreen({imageUrl, setBefore, setAfter, hasUploaded,
         setHasUploaded(false)
         setAfter(false)
         setBefore(true)
+    }
+
+    const redirectRegister = () => {
+        setAfter(false)
+        setRegister(true)
     }
 
     useEffect(() => {
@@ -106,7 +111,11 @@ export default function FinalScreen({imageUrl, setBefore, setAfter, hasUploaded,
                 </div>
                 
             ) : (
-                <button className = "bg-green-600 rounded-2xl p-4 text-white cursor-pointer ml-auto" onClick = {() => {redirectUpload()}}>Upload</button>
+                <div className = "flex w-full justify-end gap-2">
+                    <button className = "bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick = {() => {redirectRegister()}}>Register</button>
+                    <button className = "bg-green-600 rounded-2xl p-4 text-white cursor-pointer " onClick = {() => {redirectUpload()}}>Upload</button>
+                </div>
+
             )
 
             }
@@ -120,7 +129,7 @@ export default function FinalScreen({imageUrl, setBefore, setAfter, hasUploaded,
             <div className = "grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
                 {allImages.map((item, index) => (
                     <div className = "relative m-auto" key = {index}>
-                        <img src = {item.imageLink} key = {index} className = "" />
+                        <Image cloudName = "dnyt3b1h3" publicId = {item.imageLink} key = {index} className = "" />
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 bg-black bg-opacity-50 cursor-pointer hover:opacity-100" onMouseEnter = {() => setEditedLabel(item.label)} onMouseLeave={() => exitImage()}>
                             { editMode ? (
                                     <input

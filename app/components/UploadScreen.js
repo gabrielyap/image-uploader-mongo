@@ -25,7 +25,7 @@ export default function UploadScreen({imageUrl, setImageUrl, setBefore, setLoadi
       window.alert("Error: " + err)
     })
 
-    await Axios.post("https://museum-server-wktu.onrender.com/api",  //POST to server to store url and label
+    await Axios.post("http://localhost:8000/api",  //POST to server to store url and label
     {
       imageLink: url,
       label: inputValue,
@@ -67,7 +67,7 @@ export default function UploadScreen({imageUrl, setImageUrl, setBefore, setLoadi
   }
 
     return(
-      <div className = "flex flex-col items-center bg-zinc-50 p-6 rounded-lg shadow-lg ">
+      <div className = "flex flex-col items-center bg-zinc-50 p-6 rounded-lg shadow-lg mt-10">
       <button className = "bg-blue-600 rounded-2xl p-4 text-white cursor-pointer ml-auto" onClick = {() => redirectFinal()}>View Gallery</button>
       <h1 className = "font-semibold font-poppins text-stone-900 text-2xl mt-4">Upload your image </h1>
       <h3 className = "font-poppins text-stone-500 text-1xl my-4">File should be Jpeg, Png...</h3>
