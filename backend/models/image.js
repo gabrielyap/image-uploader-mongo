@@ -6,6 +6,7 @@ const Schema = mongoose.Schema
 const ImageSchema = new Schema({
     imageLink: String,
     label: String,
+    author: String,
 })
 
 module.exports = mongoose.model('Image', ImageSchema)
