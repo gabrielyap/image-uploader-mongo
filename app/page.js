@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useState, useEffect} from "react"
+import React, { useState, useEffect } from "react"
 import { Image } from "cloudinary-react"
 import UploadScreen from "./components/UploadScreen"
 import LoadingScreen from "./components/LoadingScreen"
@@ -16,31 +16,88 @@ export default function Home() {
   const [hasUploaded, setHasUploaded] = useState(false)
   const [register, setRegister] = useState(false)
   const [login, setLogin] = useState(false)
-  const [loginCredentials, setLoginCredentials] = 
-  useState({
-    username: '',
-    password: ''
-})
-  
+  const [loginCredentials, setLoginCredentials] =
+    useState({
+      username: '',
+      password: ''
+    })
 
-  return (
-    <main className="flex min-h-screen flex-col 
+  const redirectUpload = () => {
+    setHasUploaded(false)
+    setAfter(false)
+    setBefore(true)
+  }
+
+  const redirectRegister = () => {
+    setAfter(false)
+    setRegister(true)
+  }
+  const redirectLogin = () => {
+    setAfter(false)
+    setLogin(true)
+  }
+
+  const redirectButtons = (state) => {
+    setBefore(false);
+    setLoading(false);
+    setAfter(false);
+    setHasUploaded(false);
+    setRegister(false);
+    setLogin(false);
+
+    switch (state) {
+      case 'before':
+        setBefore(true);
+        break;
+      case 'loading':
+        setLoading(true);
+        break;
+      case 'after':
+        setAfter(true);
+        break;
+      case 'hasUploaded':
+        setHasUploaded(true);
+        break;
+      case 'register':
+        setRegister(true);
+        break;
+      case 'login':
+        setLogin(true);
+        break;
+      default:
+        break;
+    }
+  }
+
+    return (
+      <main className="flex min-h-screen flex-col 
     items-center py-4
-    bg-gray-200">
+    bg-cover" >
+        <div className="flex w-full justify-between gap-2 ">
+          <img className="w-16 h-16 ml-8 hover:cursor-pointer" src="camera-flat.png" alt="logo" onClick={() => { redirectButtons('after') }}/>
+          <div className="flex w-full self-center text-2xl font-semibold text-gray-900 dark:text-white hover:cursor-pointer" onClick={() => { redirectButtons('after') }}> Mongo Museum</div>
 
-      {before && <UploadScreen imageUrl = {imageUrl} setImageUrl = {setImageUrl} setBefore={setBefore} setLoading={setLoading} 
-      setAfter ={setAfter} setHasUploaded = {setHasUploaded} loginCredentials={loginCredentials}/>}
-      
-      {loading && <LoadingScreen />}
+          {/* <div className="flex w-full justify-end gap-2 mr-8"> */}
+          <div className="flex w-full justify-end gap-2 mr-8">
+            <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectButtons('login') }}>Login</button>
+            <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectButtons('register') }}>Register</button>
+            <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer " onClick={() => { redirectButtons('before') }}>Upload</button>
+          </div>
 
-      {after && <FinalScreen imageUrl = {imageUrl} setBefore = {setBefore} setAfter = {setAfter} hasUploaded = {hasUploaded} setHasUploaded = {setHasUploaded} 
-       register = {register} setRegister = {setRegister} setLogin={setLogin} loginCredentials={loginCredentials}/>}
+        </div>
+        {before && <UploadScreen imageUrl={imageUrl} setImageUrl={setImageUrl} setBefore={setBefore} setLoading={setLoading}
+          setAfter={setAfter} setHasUploaded={setHasUploaded} loginCredentials={loginCredentials} />}
 
-      {register && <RegisterScreen setRegister = {setRegister} setAfter = {setAfter}/>}
-      {login && <LoginScreen setLogin = {setLogin} setAfter = {setAfter} setLoginCredentials={setLoginCredentials}/>}
-      <footer className = "font-semibold font-poppins text-gray-500 text-1xl mt-4">Created by <a href = "https://github.com/gabrielyap">Gabriel Yap</a></footer>
-    </main>
-      
+        {loading && <LoadingScreen />}
 
-  )
-}
+        {after && <FinalScreen imageUrl={imageUrl} setBefore={setBefore} setAfter={setAfter} hasUploaded={hasUploaded} setHasUploaded={setHasUploaded}
+          register={register} setRegister={setRegister} setLogin={setLogin} loginCredentials={loginCredentials} />}
+
+        {register && <RegisterScreen setRegister={setRegister} setAfter={setAfter} />}
+        {login && <LoginScreen setLogin={setLogin} setAfter={setAfter} setLoginCredentials={setLoginCredentials} />}
+        <footer className="font-semibold font-poppins text-gray-500 text-1xl mt-4">Created by <a href="https://github.com/gabrielyap">Gabriel Yap</a></footer>
+      </main>
+
+
+    )
+  }

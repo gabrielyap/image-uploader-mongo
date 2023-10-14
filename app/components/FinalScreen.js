@@ -116,12 +116,11 @@ export default function FinalScreen({ imageUrl, setBefore, setAfter, hasUploaded
                 <div className="flex flex-col items-center">
                     <div className="flex w-full justify-between">
                         <img src="green_check2.png" className="mr-auto w-16" />
-                        <div className="flex w-full justify-end gap-2">
-                            {/* <button onClick = {() => checkLoginCreds()}>Check login creds</button> */}
+                        {/* <div className="flex w-full justify-end gap-2">
                             <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectLogin() }}>Login</button>
                             <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectRegister() }}>Register</button>
                             <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer " onClick={() => { redirectUpload() }}>Upload</button>
-                        </div>
+                        </div> */}
                     </div>
 
                     <h1 className="font-semibold font-poppins text-stone-900 text-2xl my-4">Uploaded Successfully!</h1>
@@ -133,13 +132,12 @@ export default function FinalScreen({ imageUrl, setBefore, setAfter, hasUploaded
                 </div>
 
             ) : (
-                <div className="flex w-full justify-end gap-2">
-                    {/* <button onClick = {() => checkLoginCreds()}>Check login creds</button> */}
-                    <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectLogin() }}>Login</button>
-                    <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectRegister() }}>Register</button>
-                    <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer " onClick={() => { redirectUpload() }}>Upload</button>
-                </div>
-
+                // <div className="flex w-full justify-end gap-2">
+                //     <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectLogin() }}>Login</button>
+                //     <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectRegister() }}>Register</button>
+                //     <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer " onClick={() => { redirectUpload() }}>Upload</button>
+                // </div>
+                null
             )
 
             }
@@ -153,7 +151,7 @@ export default function FinalScreen({ imageUrl, setBefore, setAfter, hasUploaded
             <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
                 {allImages.map((item, index) => (
                     <div className="relative m-auto" key={index}>
-                        <Image cloudName="dnyt3b1h3" publicId={item.imageLink} key={index} className="" />
+                        <Image cloudName="dnyt3b1h3" publicId={item.imageLink} key={index} className="w-full h-full object-fit-contain" />
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 bg-black bg-opacity-50 cursor-pointer hover:opacity-100" onMouseEnter={() => setEditedLabel(item.label)} onMouseLeave={() => exitImage()}>
                             {editMode ? (
                                 <input
