@@ -37,6 +37,13 @@ export default function Home() {
     setLogin(true)
   }
 
+  const handleLogout = () => {
+    setLoginCredentials({
+      username: '',
+      password: ''
+    })
+  }
+
   const redirectButtons = (state) => {
     setBefore(false);
     setLoading(false);
@@ -69,35 +76,57 @@ export default function Home() {
     }
   }
 
-    return (
-      <main className="flex min-h-screen flex-col 
+  return (
+    <main className="flex min-h-screen flex-col 
     items-center py-4
     bg-cover" >
-        <div className="flex w-full justify-between gap-2 ">
-          <img className="w-16 h-16 ml-8 hover:cursor-pointer" src="camera-flat.png" alt="logo" onClick={() => { redirectButtons('after') }}/>
-          <div className="flex w-full self-center text-2xl font-semibold text-gray-900 dark:text-white hover:cursor-pointer" onClick={() => { redirectButtons('after') }}> Mongo Museum</div>
+      <div className="flex w-full justify-between gap-2 ">
+        <div className="flex gap-2" >
+          <img className="w-16 h-16 ml-8 hover:cursor-pointer" src="camera-flat.png" alt="logo" onClick={() => { redirectButtons('after') }} />
+          <div className="flex self-center text-2xl font-semibold text-gray-900 dark:text-white hover:cursor-pointer " onClick={() => { redirectButtons('after') }}> Mongo Museum</div>
+          <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer " onClick={() => { redirectButtons('before') }}>New Post</button>
+        </div>
 
-          {/* <div className="flex w-full justify-end gap-2 mr-8"> */}
-          <div className="flex w-full justify-end gap-2 mr-8">
-            <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectButtons('login') }}>Login</button>
-            <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectButtons('register') }}>Register</button>
-            <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer " onClick={() => { redirectButtons('before') }}>Upload</button>
-          </div>
+        <div className="flex self-center gap-2 mr-8 ">
+          {
+            loginCredentials.username != '' ? (
+              <h1 className="flex flex-row-reverse w-full my-2 italic">{loginCredentials.username} </h1>
+            ) : (
+              <div></div>
+            )
+
+          }
+
+          {
+            loginCredentials.username != '' ? (
+              <div className = "flex self-center gap-2 mr-8 ">
+                <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer" onClick={() => { handleLogout() }}>Logout</button>
+              </div>
+            ) : (
+              <div className = "flex self-center gap-2 mr-8 ">
+                <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer" onClick={() => { redirectButtons('login') }}>Login</button>
+                <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer" onClick={() => { redirectButtons('register') }}>Register</button>
+              </div>
+            )
+
+          }
 
         </div>
-        {before && <UploadScreen imageUrl={imageUrl} setImageUrl={setImageUrl} setBefore={setBefore} setLoading={setLoading}
-          setAfter={setAfter} setHasUploaded={setHasUploaded} loginCredentials={loginCredentials} />}
 
-        {loading && <LoadingScreen />}
+      </div>
+      {before && <UploadScreen imageUrl={imageUrl} setImageUrl={setImageUrl} setBefore={setBefore} setLoading={setLoading}
+        setAfter={setAfter} setHasUploaded={setHasUploaded} loginCredentials={loginCredentials} />}
 
-        {after && <FinalScreen imageUrl={imageUrl} setBefore={setBefore} setAfter={setAfter} hasUploaded={hasUploaded} setHasUploaded={setHasUploaded}
-          register={register} setRegister={setRegister} setLogin={setLogin} loginCredentials={loginCredentials} />}
+      {loading && <LoadingScreen />}
 
-        {register && <RegisterScreen setRegister={setRegister} setAfter={setAfter} />}
-        {login && <LoginScreen setLogin={setLogin} setAfter={setAfter} setLoginCredentials={setLoginCredentials} />}
-        <footer className="font-semibold font-poppins text-gray-500 text-1xl mt-4">Created by <a href="https://github.com/gabrielyap">Gabriel Yap</a></footer>
-      </main>
+      {after && <FinalScreen imageUrl={imageUrl} setBefore={setBefore} setAfter={setAfter} hasUploaded={hasUploaded} setHasUploaded={setHasUploaded}
+        register={register} setRegister={setRegister} setLogin={setLogin} loginCredentials={loginCredentials} />}
+
+      {register && <RegisterScreen setRegister={setRegister} setAfter={setAfter} />}
+      {login && <LoginScreen setLogin={setLogin} setAfter={setAfter} setLoginCredentials={setLoginCredentials} />}
+      <footer className="font-semibold font-poppins text-gray-500 text-1xl mt-4">Created by <a href="https://github.com/gabrielyap">Gabriel Yap</a></footer>
+    </main>
 
 
-    )
-  }
+  )
+}

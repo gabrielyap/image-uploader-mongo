@@ -69,14 +69,6 @@ export default function UploadScreen({ imageUrl, setImageUrl, setBefore, setLoad
 
   return (
     <div className="flex flex-col items-center bg-zinc-50 p-6 rounded-lg shadow-lg mt-10">
-      {
-        loginCredentials.username != '' ? (
-          <h1 className="flex flex-row-reverse w-full my-2">Welcome back, {loginCredentials.username} </h1>
-        ) : (
-          <div></div>
-        )
-
-      }
       <button className="bg-blue-600 rounded-2xl p-4 text-white cursor-pointer ml-auto" onClick={() => redirectFinal()}>View Gallery</button>
       <h1 className="font-semibold font-poppins text-stone-900 text-2xl mt-4">Upload your image </h1>
       <h3 className="font-poppins text-stone-500 text-1xl my-4">File should be Jpeg, Png...</h3>
