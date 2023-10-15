@@ -103,7 +103,7 @@ export default function FinalScreen({ imageUrl, setBefore, setAfter, hasUploaded
     }, [])
 
     return (
-        <div className="flex flex-col items-center bg-zinc-50 p-6 rounded-lg shadow-lg max-w-2xl">
+        <div className="flex flex-col items-center  p-6 rounded-lg max-w-2xl">
             {hasUploaded ? (
                 <div className="flex flex-col items-center">
                     <div className="flex w-full justify-between">

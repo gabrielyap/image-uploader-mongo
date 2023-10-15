@@ -78,19 +78,25 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col 
-    items-center py-4
+    items-center 
     bg-cover" >
-      <div className="flex w-full justify-between gap-2 ">
+      <div className="flex w-full justify-between gap-2 bg-zinc-700 py-3">
         <div className="flex gap-2" >
           <img className="w-16 h-16 ml-8 hover:cursor-pointer" src="camera-flat.png" alt="logo" onClick={() => { redirectButtons('after') }} />
-          <div className="flex self-center text-2xl font-semibold text-gray-900 dark:text-white hover:cursor-pointer " onClick={() => { redirectButtons('after') }}> Mongo Museum</div>
+          <div className="flex self-center text-2xl font-semibold text-stone-50 dark:text-white hover:cursor-pointer " onClick={() => { redirectButtons('after') }}> Mongo Museum</div>
           <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer " onClick={() => { redirectButtons('before') }}>New Post</button>
         </div>
 
         <div className="flex self-center gap-2 mr-8 ">
+          {/* <h1 className="flex flex-row-reverse my-2 text-sky-400 mr-2">
+            About
+          </h1>
+          <h1 className="flex flex-row-reverse my-2 text-sky-400 mr-2 ">
+            Contact Us
+          </h1> */}
           {
             loginCredentials.username != '' ? (
-              <h1 className="flex flex-row-reverse w-full my-2 italic">{loginCredentials.username} </h1>
+              <h1 className="flex flex-row-reverse my-2 text-stone-50 mr-2">Hi, {loginCredentials.username} </h1>
             ) : (
               <div></div>
             )
@@ -124,7 +130,9 @@ export default function Home() {
 
       {register && <RegisterScreen setRegister={setRegister} setAfter={setAfter} />}
       {login && <LoginScreen setLogin={setLogin} setAfter={setAfter} setLoginCredentials={setLoginCredentials} />}
-      <footer className="font-semibold font-poppins text-gray-500 text-1xl mt-4">Created by <a href="https://github.com/gabrielyap">Gabriel Yap</a></footer>
+      {/* <div className = "border-2 border-red-500 w-full mt-auto">
+        <footer className="font-semibold font-poppins text-gray-500 text-1xl mt-4">Created by <a href="https://github.com/gabrielyap">Gabriel Yap</a></footer>
+      </div> */}
     </main>
 
 

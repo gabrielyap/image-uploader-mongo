@@ -23,9 +23,11 @@
 
 ## Overview
 
-![screenshot](./public/screenshot.jpg)
+![screenshot](./public/MMSC1.jpg)
+![screenshot](./public/MMUpload.jpg)
+![screenshot](./public/MMRegister.jpg)
 
-This is a fullstack image-hosting and sharing project. I built the backend with custom RESTful API to handle CRUD functions. I used MongoDB Atlas to store images in a cloud, and used Axios to create, read, update, and delete these images. For the client, I used Next.js for setup, React.js for the website, and used Tailwind for styling. I deployed the backend using Render, and the frontend using Vercel.
+This is a fullstack image-hosting and sharing project. I built the backend with custom RESTful API to handle CRUD functions. I used MongoDB Atlas to store images and users in a cloud, and used Axios to create, read, update, and delete these images and users. For the client, I used Next.js for setup, React.js for the website, and used Tailwind for styling. I deployed the backend using Render, and the frontend using Vercel.
 
 Problems/Solved: I could not get functions to run after an Axios request, then I realized I had to send a res.status back from the server.
 Search would not work when search is invalid, then valid, so temp fix added.
