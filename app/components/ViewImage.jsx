@@ -67,14 +67,14 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
                     <h2 className="flex text-2xl">No Author</h2>
                 )}
                 {showEditForm && (
-                    <div>
+                    <div className ="flex gap-4">
                         <input
                             type="text"
                             value={newLabel}
                             onChange={(e) => setNewLabel(e.target.value)}
                             placeholder="Enter new label"
                         />
-                        <button onClick={()=>handleEdit()}>Submit</button>
+                        <button className = "bg-blue-500 text-white px-4 py-2 rounded" onClick={()=>handleEdit()}>Submit</button>
                     </div>
                 )}
                 <div className="relative">
@@ -90,7 +90,7 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
                             <button className="block w-full text-left py-2 px-4 hover:bg-gray-100" onClick={() => copyLink()}>
                                 Copy Link
                             </button>
-                            {(viewAuthor == loginCredentials.username || viewAuthor == '') ? (
+                            {(viewAuthor == loginCredentials.username || viewAuthor == null) ? (
                                 <div>
                                     <button className="block w-full text-left py-2 px-4 hover:bg-gray-100" onClick={() => openEditForm()}>
                                         Edit
