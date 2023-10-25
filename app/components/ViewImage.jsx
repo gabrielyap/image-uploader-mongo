@@ -39,9 +39,17 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
                 window.alert(`Error: ${err}`)
             })
     }
-    const openOptions = () => {
-        setShowModal(true)
+    const handleEdit = async() => {
+        await Axios.put(`http://localhost:8000/api/${viewImageId}`, { label: newLabel })
+            .then((re) => {
+                setViewLabel(newLabel)
+                setShowEditForm(false)
+            })
+            .catch((err) => {
+                window.alert(`Error: ${err}`)
+            })
     }
+    
     const openEditForm = () => {
         setShowEditForm(true);
         setShowDropdown(false);
@@ -52,20 +60,32 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
     return (
         <div className="flex flex-col my-4">
             <h1 className="flex text-4xl">{viewLabel}</h1>
-            <div className="flex justify-between"> {viewAuthor ? (
-                <h2 className="flex text-2xl">Author: {viewAuthor}</h2>
-            ) : (
-                <h2 className="flex text-2xl">No Author</h2>
-            )}
+            <div className="flex justify-between">
+                {viewAuthor ? (
+                    <h2 className="flex text-2xl">Author: {viewAuthor}</h2>
+                ) : (
+                    <h2 className="flex text-2xl">No Author</h2>
+                )}
+                {showEditForm && (
+                    <div>
+                        <input
+                            type="text"
+                            value={newLabel}
+                            onChange={(e) => setNewLabel(e.target.value)}
+                            placeholder="Enter new label"
+                        />
+                        <button onClick={()=>handleEdit()}>Submit</button>
+                    </div>
+                )}
                 <div className="relative">
                     <button
                         className="bg-blue-500 text-white px-4 py-2 rounded"
                         onClick={toggleDropdown}
                     >
-                        Toggle Dropdown
+                        Options
                     </button>
                     {showDropdown && (
-                        <div className="absolute top-10 right-0 bg-white border border-gray-300 p-2 shadow">
+                        <div className="absolute top-10 right-0 bg-white border border-gray-300 p-2 shadow w-40">
                             {/* Dropdown options */}
                             <button className="block w-full text-left py-2 px-4 hover:bg-gray-100" onClick={() => copyLink()}>
                                 Copy Link
@@ -85,19 +105,9 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
                         </div>
                     )}
                 </div>
-                {showEditForm && (
-                    <form onSubmit={console.log('s')}>
-                        <input
-                            type="text"
-                            value={newLabel}
-                            onChange={(e) => setNewLabel(e.target.value)}
-                            placeholder="Enter new label"
-                        />
-                        <button type="submit">Submit</button>
-                    </form>
-                )}
+
             </div>
-          
+
             <Image cloudName="dnyt3b1h3" publicId={viewUrl.replace('/upload', '/upload/w_600')} className="rounded-xl my-4" />
         </div>
 

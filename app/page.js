@@ -29,21 +29,6 @@ export default function Home() {
       password: ''
     })
 
-  const redirectUpload = () => {
-    setHasUploaded(false)
-    setHome(false)
-    setBefore(true)
-  }
-
-  const redirectRegister = () => {
-    setHome(false)
-    setRegister(true)
-  }
-  const redirectLogin = () => {
-    setHome(false)
-    setLogin(true)
-  }
-
   const handleLogout = () => {
     setLoginCredentials({
       username: '',
