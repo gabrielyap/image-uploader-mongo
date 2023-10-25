@@ -40,44 +40,6 @@ export default function HomeScreen({ imageUrl, setHome, hasUploaded, loginCreden
 
     }
 
-    const handleDelete = async (id) => {
-        await Axios.delete(`http://localhost:8000/api/${id}`)
-            .then((re) => {
-                //console.log(re)
-                getImages()
-            })
-            .catch((err) => {
-                window.alert(`Error: ${err}`)
-            })
-    }
-
-    const handleEdit = async (id, newLabel) => {
-        setEditMode(false)
-        setEditedLabel('')
-        await Axios.put(`http://localhost:8000/api/${id}`, { label: newLabel })
-            .then((re) => {
-                getImages()
-            })
-            .catch((err) => {
-                window.alert(`Error: ${err}`)
-            })
-    }
-
-    const exitImage = () => {
-        setEditMode(false)
-        setEditedLabel('')
-    }
-
-    const copyLink = async (id) => {
-        await Axios.get(`http://localhost:8000/api/${id}`)
-            .then((re) => {
-                navigator.clipboard.writeText(re.data.imageLink)
-                window.alert("Link copied!")
-            }).catch((err) => {
-                window.alert(err)
-            })
-    }
-
     const redirectView = (imageLink) => {
         console.log(imageLink)
         setViewImageId(imageLink)
@@ -121,33 +83,8 @@ export default function HomeScreen({ imageUrl, setHome, hasUploaded, loginCreden
                 {allImages.map((item, index) => (
                     <div className="relative m-auto" key={index}>
                         <Image cloudName="dnyt3b1h3" publicId={item.imageLink.replace('/upload', '/upload/w_300')} key={index} className="w-full h-full object-fit-contain" />
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 bg-black bg-opacity-50 cursor-pointer hover:opacity-100" 
-                        onMouseEnter={() => setEditedLabel(item.label)} onMouseLeave={() => exitImage()}  onClick = {()=>redirectView(item._id)}>
-                            {editMode ? (
-                                <input
-                                    className="w-24"
-                                    type="text"
-                                    value={editedLabel}
-                                    onChange={(e) => setEditedLabel(e.target.value)}
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter') {
-                                            handleEdit(item._id, editedLabel)
-                                        }
-                                    }}
-                                />
-                            ) : (
-                                <span className="text-white" onClick={() => {
-                                    setEditMode(true)
-                                    setEditedLabel(item.label)
-                                }
-                                }>{item.label}</span>
-                            )
-
-                            }
-
-                            <button className="absolute top-0 right-0 px-1 text-white bg-red-500" onClick={() => handleDelete(item._id)}>X</button>
-                            <button className="absolute top-0 left-0 px-1 text-white bg-blue-500" onClick={() => setEditMode(true)}>EDIT</button>
-                            <button className="absolute bottom-0 left-0 px-1 text-white bg-blue-500" onClick={() => copyLink(item._id)}>COPY</button>
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 bg-black bg-opacity-50 cursor-pointer hover:opacity-100" onClick={() => redirectView(item._id)}>
+                            <span className="text-white">{item.label}</span>
                             <div className="absolute bottom-0 right-0 text-white text-xs">
                                 {(item.author != '' && item.author != null) ? (
                                     <div> author: {item.author} </div>
