@@ -2,8 +2,7 @@
 
 import React, { useState } from "react"
 import Axios from 'axios'
-import { Image } from "cloudinary-react"
-export default function UploadScreen({ imageUrl, setImageUrl, setBefore, setLoading, setAfter, setHasUploaded, loginCredentials }) {
+export default function UploadScreen({setImageUrl, setBefore, setLoading, setHome, setHasUploaded, loginCredentials }) {
   const [inputValue, setInputValue] = useState('');
 
   const uploadImage = async (files) => {
@@ -17,7 +16,7 @@ export default function UploadScreen({ imageUrl, setImageUrl, setBefore, setLoad
       .then((re) => {
         setLoading(false)
         setHasUploaded(true)
-        setAfter(true)
+        setHome(true)
         setImageUrl(re.data.url)
         url = re.data.url
       })
@@ -58,7 +57,7 @@ export default function UploadScreen({ imageUrl, setImageUrl, setBefore, setLoad
   const redirectFinal = () => {
     setBefore(false)
     setHasUploaded(false)
-    setAfter(true)
+    setHome(true)
   }
 
   function dragOverHandler(e) {

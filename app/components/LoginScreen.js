@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import Axios from 'axios'
 
-export default function LoginScreen({ setAfter, setLogin, setLoginCredentials}) {
+export default function LoginScreen({ setHome, setLogin, setLoginCredentials}) {
     const [formData, setFormData] = useState({
         username: '',
         password: ''
@@ -25,7 +25,7 @@ export default function LoginScreen({ setAfter, setLogin, setLoginCredentials}) 
               setLoginCredentials(formData)
               console.log("response.data: ", response.data)
               setLogin(false)
-              setAfter(true)
+              setHome(true)
               //handleBack()
             } else {
               // Handle login error
@@ -48,7 +48,7 @@ export default function LoginScreen({ setAfter, setLogin, setLoginCredentials}) 
     // }
     const handleBack = () =>  {
         setLogin(false)
-        setAfter(true)
+        setHome(true)
     }
 
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Image } from "cloudinary-react"
 import Axios from "axios"
 
-export default function FinalScreen({ imageUrl, setBefore, setAfter, hasUploaded, setHasUploaded, setRegister, setLogin, loginCredentials }) {
+export default function HomeScreen({ imageUrl, setHome, hasUploaded, loginCredentials, setView, setViewImageId }) {
     const [allImages, setAllImages] = useState([])
     const [searchValue, setSearchValue] = useState('')
     const [editMode, setEditMode] = useState(false)
@@ -78,21 +78,12 @@ export default function FinalScreen({ imageUrl, setBefore, setAfter, hasUploaded
             })
     }
 
-    const redirectUpload = () => {
-        setHasUploaded(false)
-        setAfter(false)
-        setBefore(true)
+    const redirectView = (imageLink) => {
+        console.log(imageLink)
+        setViewImageId(imageLink)
+        setHome(false)
+        setView(true)
     }
-
-    const redirectRegister = () => {
-        setAfter(false)
-        setRegister(true)
-    }
-    const redirectLogin = () => {
-        setAfter(false)
-        setLogin(true)
-    }
-
 
     const checkLoginCreds = async () => {
         console.log('loginCredentials', loginCredentials)
@@ -103,16 +94,11 @@ export default function FinalScreen({ imageUrl, setBefore, setAfter, hasUploaded
     }, [])
 
     return (
-        <div className="flex flex-col items-center  p-6 rounded-lg max-w-2xl">
+        <div className="flex flex-col items-center p-6 rounded-lg max-w-6xl">
             {hasUploaded ? (
                 <div className="flex flex-col items-center">
                     <div className="flex w-full justify-between">
                         <img src="green_check2.png" className="mr-auto w-16" />
-                        {/* <div className="flex w-full justify-end gap-2">
-                            <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectLogin() }}>Login</button>
-                            <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectRegister() }}>Register</button>
-                            <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer " onClick={() => { redirectUpload() }}>Upload</button>
-                        </div> */}
                     </div>
 
                     <h1 className="font-semibold font-poppins text-stone-900 text-2xl my-4">Uploaded Successfully!</h1>
@@ -123,28 +109,20 @@ export default function FinalScreen({ imageUrl, setBefore, setAfter, hasUploaded
                     </div>
                 </div>
 
-            ) : (
-                // <div className="flex w-full justify-end gap-2">
-                //     <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectLogin() }}>Login</button>
-                //     <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer" onClick={() => { redirectRegister() }}>Register</button>
-                //     <button className="bg-green-600 rounded-2xl p-4 text-white cursor-pointer " onClick={() => { redirectUpload() }}>Upload</button>
-                // </div>
-                null
-            )
-
+            ) : (null)
             }
-
 
             <div>
                 <input type="text" id="search" className="outline-blue-200 outline px-1 mr-2" placeholder="Search..." onChange={(e) => setSearchValue(e.target.value)} />
                 <button className="bg-blue-500 rounded-2xl p-4 text-white cursor-pointer my-4" onClick={() => handleSearch()}>Search</button>
             </div>
 
-            <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-8">
                 {allImages.map((item, index) => (
                     <div className="relative m-auto" key={index}>
                         <Image cloudName="dnyt3b1h3" publicId={item.imageLink.replace('/upload', '/upload/w_300')} key={index} className="w-full h-full object-fit-contain" />
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 bg-black bg-opacity-50 cursor-pointer hover:opacity-100" onMouseEnter={() => setEditedLabel(item.label)} onMouseLeave={() => exitImage()}>
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 bg-black bg-opacity-50 cursor-pointer hover:opacity-100" 
+                        onMouseEnter={() => setEditedLabel(item.label)} onMouseLeave={() => exitImage()}  onClick = {()=>redirectView(item._id)}>
                             {editMode ? (
                                 <input
                                     className="w-24"

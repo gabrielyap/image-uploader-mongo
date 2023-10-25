@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import Axios from 'axios'
 
-export default function RegisterScreen({setAfter, setRegister}) {
+export default function RegisterScreen({setHome, setRegister}) {
     const [formData, setFormData] = useState({
         email: '',
         username: '',
@@ -25,7 +25,7 @@ export default function RegisterScreen({setAfter, setRegister}) {
               // Successful register
               console.log("response.data: ", response.data)
               setRegister(false)
-              setAfter(true)
+              setHome(true)
               //handleBack()
             } else {
               // Handle login error
@@ -38,13 +38,13 @@ export default function RegisterScreen({setAfter, setRegister}) {
           }
     };
 
-    const redirectAfter = () => {
+    const redirectHome = () => {
         setRegister(false)
-        setAfter(true)
+        setHome(true)
     }
     const handleBack = () =>  {
         setRegister(false)
-        setAfter(true)
+        setHome(true)
     }
 
     return (
