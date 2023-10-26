@@ -8,6 +8,7 @@ const app = express()
 const mongoose = require('mongoose')
 const cors = require('cors')
 const Image = require('./models/image')
+const Comment = require('./models/comment')
 const bodyParser = require('body-parser')
 const dbUrl = process.env.DB_URL;
 const session = require('express-session')
@@ -74,11 +75,12 @@ app.get("/", (req: Request, res: Response) => {
 
 
 app.post("/api", (req: Request, res: Response) => {
-    //console.log('api/upload req.body: ', req.body)
+    console.log('api/upload req.body: ', req.body)
     const image = new Image({
         imageLink: req.body.imageLink,
         label: req.body.label,
-        author: req.body.author
+        author: req.body.author,
+        comments: req.body.comments
     })
     image.save()
     res.status(200).send(`received ${req.body}`)
@@ -98,6 +100,17 @@ app.get("/api/:id", async (req: Request, res: Response) => {
     const { id } = req.params
     const image = await Image.findById(id)
     res.json(image)
+})
+
+app.put("/api/comments/:id", async (req: Request, res: Response) => {
+    const { id } = req.params
+    const image = await Image.findById(id)
+    //const comment = new Comment({content: req.body.comment, author: req.body.author})
+    const comment = {content: req.body.content, author: req.body.author}
+    image.comments.push(comment)
+    //await comment.save()
+    await image.save()
+    res.status(200).send(`edited ${id}`)
 })
 
 app.put("/api/:id", async (req: Request, res: Response) => {
