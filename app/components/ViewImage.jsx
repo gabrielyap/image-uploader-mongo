@@ -49,6 +49,15 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
                 window.alert(`Error: ${err}`)
             })
     }
+    // const handleComment = async() => {
+    //     await Axios.put(`http://localhost:8000/api/comments/${viewImageId}`, {comment: "newcomment", author: loginCredentials.username})
+    //     .then((re) => {
+    //         console.log('handlecommentgave: ', re)
+    //     })
+    //     .catch((err) => {
+    //         window.alert(`Error: ${err}`)
+    //     })
+    // }
     
     const openEditForm = () => {
         setShowEditForm(true);
@@ -109,9 +118,9 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
             </div>
 
             <Image cloudName="dnyt3b1h3" publicId={viewUrl.replace('/upload', '/upload/w_600')} className="rounded-xl my-4" />
+            {/* <button onClick = {handleComment()}>Testnewcomment</button> */}
         </div>
 
     )
 
 }
-

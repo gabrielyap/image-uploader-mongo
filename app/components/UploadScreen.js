@@ -28,10 +28,11 @@ export default function UploadScreen({setImageUrl, setBefore, setLoading, setHom
       {
         imageLink: url,
         label: inputValue,
-        author: loginCredentials.username
+        author: loginCredentials.username,
+        comments: [{content: "SO COOL", author:"defaultAuthor"}] //testing line
       })
       .then((re) => {
-        //console.log(`Got response ${re}`) //[object Object]
+        console.log(`Got response ${re}`) //[object Object]
       })
       .catch((err) => {
         window.alert("Error: " + err)
@@ -68,7 +69,7 @@ export default function UploadScreen({setImageUrl, setBefore, setLoading, setHom
 
   return (
     <div className="flex flex-col items-center bg-zinc-50 p-6 rounded-lg shadow-lg mt-10">
-      <button className="bg-blue-600 rounded-2xl p-4 text-white cursor-pointer ml-auto" onClick={() => redirectFinal()}>View Gallery</button>
+      <button className="bg-blue-600 rounded-2xl p-4 text-white cursor-pointer ml-auto hover:text-blue-200" onClick={() => redirectFinal()}>View Gallery</button>
       <h1 className="font-semibold font-poppins text-stone-900 text-2xl mt-4">Upload your image </h1>
       <h3 className="font-poppins text-stone-500 text-1xl my-4">File should be Jpeg, Png...</h3>
       <input type="text" id="labelName" className="outline-blue-200 outline px-1" placeholder="Label Name (optional)" onChange={(e) => handleChange(e)} />
@@ -86,7 +87,7 @@ export default function UploadScreen({setImageUrl, setBefore, setLoading, setHom
         />
         <h3 className="font-poppins text-stone-500 text-1xl my-4"> Or </h3>
         <input type="button" value="Choose a file"
-          className="bg-blue-500 rounded-full my-4 p-4 text-white cursor-pointer" onClick={() => handleButtonClick()}></input>
+          className="bg-blue-500 rounded-full my-4 p-4 text-white cursor-pointer hover:text-blue-200" onClick={() => handleButtonClick()}></input>
       </div>
 
     </div>
