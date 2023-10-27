@@ -29,7 +29,7 @@ export default function UploadScreen({setImageUrl, setBefore, setLoading, setHom
         imageLink: url,
         label: inputValue,
         author: loginCredentials.username,
-        comments: [{content: "SO COOL", author:"defaultAuthor"}] //testing line
+        comments: [] //testing line
       })
       .then((re) => {
         console.log(`Got response ${re}`) //[object Object]
