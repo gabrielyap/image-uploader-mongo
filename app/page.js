@@ -9,7 +9,6 @@ import RegisterScreen from "./components/RegisterScreen"
 import LoginScreen from "./components/LoginScreen"
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ViewImage from "./components/ViewImage"
-import OptionModal from "./components/OptionModal"
 
 
 export default function Home() {

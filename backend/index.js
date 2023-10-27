@@ -138,6 +138,9 @@ app.put("/api/comments/:id", function (req, res) { return __awaiter(void 0, void
             case 1:
                 image = _a.sent();
                 comment = { content: req.body.content, author: req.body.author };
+                if (req.body.author == "") {
+                    comment.author = "Anonymous";
+                }
                 image.comments.push(comment);
                 //await comment.save()
                 return [4 /*yield*/, image.save()];
