@@ -9,7 +9,6 @@ import RegisterScreen from "./components/RegisterScreen"
 import LoginScreen from "./components/LoginScreen"
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ViewImage from "./components/ViewImage"
-import OptionModal from "./components/OptionModal"
 
 
 export default function Home() {
@@ -78,7 +77,7 @@ export default function Home() {
         <div className="flex gap-2" >
           <img className="w-16 h-16 ml-8 hover:cursor-pointer" src="camera-flat.png" alt="logo" onClick={() => { redirectButtons('home') }} />
           <div className="flex self-center text-2xl font-semibold text-stone-50 dark:text-white hover:cursor-pointer " onClick={() => { redirectButtons('home') }}> Mongo Museum</div>
-          <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer " onClick={() => { redirectButtons('before') }}>New Post</button>
+          <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('before') }}>New Post</button>
         </div>
 
         <div className="flex self-center gap-2 mr-8 ">
@@ -100,12 +99,12 @@ export default function Home() {
           {
             loginCredentials.username != '' ? (
               <div className="flex self-center gap-2 mr-8 ">
-                <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer" onClick={() => { handleLogout() }}>Logout</button>
+                <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { handleLogout() }}>Logout</button>
               </div>
             ) : (
               <div className="flex self-center gap-2 mr-8 ">
-                <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer" onClick={() => { redirectButtons('login') }}>Login</button>
-                <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer" onClick={() => { redirectButtons('register') }}>Register</button>
+                <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('login') }}>Login</button>
+                <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('register') }}>Register</button>
               </div>
             )
 

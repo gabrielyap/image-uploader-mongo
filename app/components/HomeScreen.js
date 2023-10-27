@@ -76,7 +76,7 @@ export default function HomeScreen({ imageUrl, setHome, hasUploaded, loginCreden
 
             <div>
                 <input type="text" id="search" className="outline-blue-200 outline px-1 mr-2" placeholder="Search..." onChange={(e) => setSearchValue(e.target.value)} />
-                <button className="bg-blue-500 rounded-2xl p-4 text-white cursor-pointer my-4" onClick={() => handleSearch()}>Search</button>
+                <button className="bg-blue-500 rounded-2xl p-4 text-white cursor-pointer my-4 hover:text-cyan-200" onClick={() => handleSearch()}>Search</button>
             </div>
 
             <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-8">
