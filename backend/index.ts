@@ -123,6 +123,15 @@ app.put("/api/:id", async (req: Request, res: Response) => {
     res.status(200).send(`edited ${id}`)
 })
 
+app.patch("/api/comments/:id", async (req: Request, res: Response) => {
+    const { id } = req.params
+    const image = await Image.findById(id)
+    image.comments.splice(req.body.commentIndex, 1)
+    console.log(id, req.body)
+    await image.save()
+    res.status(200).send(`edited ${id}`)
+})
+
 app.delete("/api/:id", async (req: Request, res: Response) => {
     const { id } = req.params
     await Image.findByIdAndDelete(id)

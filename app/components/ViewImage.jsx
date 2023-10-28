@@ -62,7 +62,15 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
                 window.alert(`Error: ${err}`)
             })
     }
-
+    const handleDeleteComment = async(index) => {
+        await Axios.patch(`http://localhost:8000/api/comments/${viewImageId}`, {commentIndex: index})
+            .then((re) => {
+                console.log("re:",re)
+            })
+            .catch((err) => {
+                window.alert(`Error: ${err}`)
+            })
+    }
     const openEditForm = () => {
         setShowEditForm(true);
         setShowDropdown(false);
@@ -128,9 +136,6 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
                         onChange={(e) => setNewComment(e.target.value)}
                         placeholder="Write a comment..."
                     />
-                    {/* <textarea id="comment" rows="4"
-                        className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
-                        placeholder="Write a comment..." required></textarea> */}
                 </div>
                 <button onClick = {() => handleComment()}
                     className="ml-auto py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
@@ -139,8 +144,8 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
             </div>
             <div className="flex flex-col gap-2">
                 {viewComments.map((comment, index) => ( // Use parentheses to imply return this. If use {} need a return statement
-                    <div key={index}>
-                        <CommentCard comment={comment} />
+                    <div key={index} onClick = {() => handleDeleteComment(index)}>
+                        <CommentCard comment={comment}/>
                     </div>
                 ))}
             </div>
