@@ -62,15 +62,18 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
                 window.alert(`Error: ${err}`)
             })
     }
+
     const handleDeleteComment = async(index) => {
         await Axios.patch(`http://localhost:8000/api/comments/${viewImageId}`, {commentIndex: index})
             .then((re) => {
                 console.log("re:",re)
+                deconstructImage(viewImageId)
             })
             .catch((err) => {
                 window.alert(`Error: ${err}`)
             })
     }
+
     const openEditForm = () => {
         setShowEditForm(true);
         setShowDropdown(false);
@@ -137,15 +140,19 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
                         placeholder="Write a comment..."
                     />
                 </div>
-                <button onClick = {() => handleComment()}
+                <button onClick={() => handleComment()}
                     className="ml-auto py-2.5 px-4 text-xs font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                     Post comment
                 </button>
             </div>
             <div className="flex flex-col gap-2">
                 {viewComments.map((comment, index) => ( // Use parentheses to imply return this. If use {} need a return statement
-                    <div key={index} onClick = {() => handleDeleteComment(index)}>
-                        <CommentCard comment={comment}/>
+                    <div key={index} className="relative">
+                        {(comment.author == loginCredentials.username || comment.author == 'Anonymous') ? ( // Delete comment button shows to author of comment
+                            <button className="absolute top-1 right-2 h-8 w-8 font-bold text-red-600" onClick={() => handleDeleteComment(index)}>X</button>
+                        ) : (null)
+                        }
+                        <CommentCard comment={comment} viewImageId={viewImageId} index={index} loginCredentials={loginCredentials} />
                     </div>
                 ))}
             </div>
