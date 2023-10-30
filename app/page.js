@@ -73,7 +73,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col 
     items-center 
     bg-cover" >
-      <div className="flex w-full justify-between gap-2 bg-zinc-700 py-3">
+      <div className="flex w-full justify-between gap-2 bg-zinc-700 py-3 shadow-xl">
         <div className="flex gap-2" >
           <img className="w-16 h-16 ml-8 hover:cursor-pointer" src="camera-flat.png" alt="logo" onClick={() => { redirectButtons('home') }} />
           <div className="flex self-center text-2xl font-semibold text-stone-50 dark:text-white hover:cursor-pointer " onClick={() => { redirectButtons('home') }}> Mongo Museum</div>
@@ -90,12 +90,9 @@ export default function Home() {
           {
             loginCredentials.username != '' ? (
               <h1 className="flex flex-row-reverse my-2 text-stone-50 mr-2">Hi, {loginCredentials.username} </h1>
-            ) : (
-              <div></div>
-            )
-
+            ) : (null)
           }
-
+          
           {
             loginCredentials.username != '' ? (
               <div className="flex self-center gap-2 mr-8 ">
