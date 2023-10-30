@@ -5,8 +5,6 @@ import Axios from "axios"
 export default function HomeScreen({ imageUrl, setHome, hasUploaded, loginCredentials, setView, setViewImageId }) {
     const [allImages, setAllImages] = useState([])
     const [searchValue, setSearchValue] = useState('')
-    const [editMode, setEditMode] = useState(false)
-    const [editedLabel, setEditedLabel] = useState('')
 
     const copyInput = () => {
         const copyText = document.getElementById("myInput");
@@ -30,7 +28,9 @@ export default function HomeScreen({ imageUrl, setHome, hasUploaded, loginCreden
     const handleSearch = async () => {
         await getImages()
         if (searchValue !== '') {
-            const filtered = await allImages.filter((item) => item.label === searchValue)
+            const filtered = await allImages.filter((item) => (
+                item.label === searchValue || item.label.toLowerCase().startsWith(searchValue.toLowerCase())
+            ))
             if (filtered.length == 0) {
                 window.alert("No images with that label")
             } else {
@@ -81,7 +81,7 @@ export default function HomeScreen({ imageUrl, setHome, hasUploaded, loginCreden
 
             <div className="grid gap-2 mb-8 md:grid-cols-2 xl:grid-cols-8">
                 {allImages.map((item, index) => (
-                    <div className="relative m-auto" key={index}>
+                    <div className="relative m-auto shadow-xl" key={index}>
                         <Image cloudName="dnyt3b1h3" publicId={item.imageLink.replace('/upload', '/upload/w_300')} key={index} className="w-full h-full object-fit-contain" />
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 bg-black bg-opacity-50 cursor-pointer hover:opacity-100" onClick={() => redirectView(item._id)}>
                             <span className="text-white">{item.label}</span>
