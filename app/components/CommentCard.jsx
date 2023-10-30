@@ -9,7 +9,7 @@ export default function CommentCard({ comment, index, loginCredentials, viewImag
         <div className="flex justify-between w-full">
           <div>
             <strong className="text-green-600">{comment.author}</strong>
-            <span class="text-xs text-gray-400">3:34 PM</span>
+            <span class="text-xs text-gray-400"> {comment.time}</span>
           </div>
 
 

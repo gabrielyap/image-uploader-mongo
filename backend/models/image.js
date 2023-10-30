@@ -8,8 +8,9 @@ const ImageSchema = new Schema({
     author: String,
     comments: [{
         content: String,
-        author: String
-}]
+        author: String,
+        time: String,
+    }]
 })
 
 module.exports = mongoose.model('Image', ImageSchema)
