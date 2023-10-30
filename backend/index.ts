@@ -107,7 +107,7 @@ app.put("/api/comments/:id", async (req: Request, res: Response) => {
     const image = await Image.findById(id)
     //const comment = new Comment({content: req.body.comment, author: req.body.author})
 
-    const comment = {content: req.body.content, author: req.body.author}
+    const comment = {content: req.body.content, author: req.body.author, time: req.body.time}
     if (req.body.author == ""){
         comment.author = "Anonymous"
     }

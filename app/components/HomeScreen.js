@@ -79,7 +79,7 @@ export default function HomeScreen({ imageUrl, setHome, hasUploaded, loginCreden
                 <button className="bg-blue-500 rounded-2xl p-4 text-white cursor-pointer my-4 hover:text-cyan-200" onClick={() => handleSearch()}>Search</button>
             </div>
 
-            <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-8">
+            <div className="grid gap-2 mb-8 md:grid-cols-2 xl:grid-cols-8">
                 {allImages.map((item, index) => (
                     <div className="relative m-auto" key={index}>
                         <Image cloudName="dnyt3b1h3" publicId={item.imageLink.replace('/upload', '/upload/w_300')} key={index} className="w-full h-full object-fit-contain" />

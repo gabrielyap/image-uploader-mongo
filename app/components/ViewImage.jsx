@@ -53,7 +53,8 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
             })
     }
     const handleComment = async () => {
-        await Axios.put(`http://localhost:8000/api/comments/${viewImageId}`, { content: newComment, author: loginCredentials.username })
+        const date = new Date().toLocaleString()
+        await Axios.put(`http://localhost:8000/api/comments/${viewImageId}`, { content: newComment, author: loginCredentials.username, time: date })
             .then((re) => {
                 setNewComment('')
                 deconstructImage(viewImageId)

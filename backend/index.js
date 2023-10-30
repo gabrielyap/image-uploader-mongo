@@ -137,7 +137,7 @@ app.put("/api/comments/:id", function (req, res) { return __awaiter(void 0, void
                 ];
             case 1:
                 image = _a.sent();
-                comment = { content: req.body.content, author: req.body.author };
+                comment = { content: req.body.content, author: req.body.author, time: req.body.time };
                 if (req.body.author == "") {
                     comment.author = "Anonymous";
                 }
