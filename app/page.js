@@ -75,7 +75,7 @@ export default function Home() {
     bg-cover" >
       <div className="flex w-full justify-between gap-2 bg-zinc-700 py-3 shadow-xl">
         <div className="flex gap-2" >
-          <img className="w-16 h-16 ml-8 hover:cursor-pointer" src="camera-flat.png" alt="logo" onClick={() => { redirectButtons('home') }} />
+          <img className="w-16 h-16 ml-4 hover:cursor-pointer" src="camera-flat.png" alt="logo" onClick={() => { redirectButtons('home') }} />
           <div className="flex self-center text-2xl font-semibold text-stone-50 dark:text-white hover:cursor-pointer " onClick={() => { redirectButtons('home') }}> Mongo Museum</div>
           <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('before') }}>New Post</button>
         </div>
@@ -99,7 +99,7 @@ export default function Home() {
                 <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { handleLogout() }}>Logout</button>
               </div>
             ) : (
-              <div className="flex self-center gap-2 mr-8 ">
+              <div className="flex self-center gap-2 ">
                 <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('login') }}>Login</button>
                 <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('register') }}>Register</button>
               </div>
