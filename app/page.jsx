@@ -9,6 +9,7 @@ import RegisterScreen from "./components/RegisterScreen"
 import LoginScreen from "./components/LoginScreen"
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ViewImage from "./components/ViewImage"
+import Link from 'next/link'
 
 
 export default function Home() {
@@ -102,6 +103,7 @@ export default function Home() {
               <div className="flex self-center gap-2 ">
                 <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('login') }}>Login</button>
                 <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('register') }}>Register</button>
+                <Link href= '/register' className ="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300">RouteReg</Link>
               </div>
             )
 
