@@ -125,7 +125,7 @@ export default function Home() {
       {home && <HomeScreen imageUrl={imageUrl} setBefore={setBefore} setHome={setHome} hasUploaded={hasUploaded} setHasUploaded={setHasUploaded}
         register={register} setRegister={setRegister} setLogin={setLogin} loginCredentials={loginCredentials} setView={setView} setViewImageId={setViewImageId} />}
       {view && <ViewImage viewImageId={viewImageId} loginCredentials={loginCredentials} setHome={setHome} setView={setView} />}
-      { }
+
       {before && <UploadScreen setImageUrl={setImageUrl} setBefore={setBefore} setLoading={setLoading}
         setHome={setHome} setHasUploaded={setHasUploaded} loginCredentials={loginCredentials} />}
 

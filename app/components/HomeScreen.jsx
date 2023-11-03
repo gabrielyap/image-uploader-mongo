@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Image } from "cloudinary-react"
 import Axios from "axios"
+import { useRouter } from "next/router"
 
 export default function HomeScreen({ imageUrl, setHome, hasUploaded, loginCredentials, setView, setViewImageId }) {
     const [allImages, setAllImages] = useState([])
@@ -41,10 +42,11 @@ export default function HomeScreen({ imageUrl, setHome, hasUploaded, loginCreden
     }
 
     const redirectView = (imageLink) => {
-        console.log(imageLink)
-        setViewImageId(imageLink)
-        setHome(false)
-        setView(true)
+        window.location.href =  `/view/?id=${imageLink}`
+        // console.log(imageLink)
+        // setViewImageId(imageLink)
+        // setHome(false)
+        // setView(true)
     }
 
     const checkLoginCreds = async () => {
