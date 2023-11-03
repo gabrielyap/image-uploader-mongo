@@ -52,18 +52,12 @@ export default function Page() {
           {/* <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('before') }}>New Post</button> */}
         </a>
 
-        <div className="flex self-center gap-2 mr-8 ">
-              <div className="flex self-center gap-2 ">
-                {/* <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('login') }}>Login</button>
-                <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('register') }}>Register</button> */}
-                <Link href="/register" className ="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300">RouteReg</Link>
-              </div>
-        </div>
+      
 
       </div>
       <div>
             <section className="bg-gray-50 dark:bg-gray-900 mt-4 shadow-xl">
-            <button className = "text-2xl font-semibold text-gray-900 p-2" onClick = {() => handleBack()}>Back</button>
+            <button className = "text-2xl font-semibold text-gray-900 p-2" onClick = {() => window.location = '/'}>Back</button>
 
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 mt-8 lg:py-0">
                     <a href="/" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
