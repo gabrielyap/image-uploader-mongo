@@ -19,8 +19,8 @@ export default function Page() {
     const searchParams = useSearchParams()    
     const viewImageId = searchParams.get('id')
     // Need login credentials and image id
-    const loginCredentials = {username: localStorage.getItem('username') ? localStorage.getItem('username') : '', 
-                            password: localStorage.getItem('password') ? localStorage.getItem('password') : ''}
+    const loginCredentials = {username: typeof window !== "undefined" ? localStorage.getItem('username') : '', 
+                            password: typeof window !== "undefined" ? localStorage.getItem('password') : ''}
     const deconstructImage = async () => {
         await Axios.get(`http://localhost:8000/api/${viewImageId}`)
             .then((re) => {
