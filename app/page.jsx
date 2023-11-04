@@ -7,8 +7,8 @@ import LoadingScreen from "./components/LoadingScreen"
 import HomeScreen from "./components/HomeScreen"
 import RegisterScreen from "./components/RegisterScreen"
 import LoginScreen from "./components/LoginScreen"
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ViewImage from "./components/ViewImage"
+import Link from 'next/link'
 
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
   const [login, setLogin] = useState(false)
   const [view, setView] = useState(false)
   const [viewImageId, setViewImageId] = useState('')
-  
+
   const [loginCredentials, setLoginCredentials] =
     useState({
       username: '',
@@ -33,6 +33,8 @@ export default function Home() {
       username: '',
       password: ''
     })
+    localStorage.removeItem("username");
+    localStorage.removeItem("password");
   }
 
   const redirectButtons = (state) => {
@@ -69,6 +71,12 @@ export default function Home() {
     }
   }
 
+  useEffect(() => {
+    if (localStorage.getItem("username") != null && localStorage.getItem("password") != null) {
+      setLoginCredentials({ username: localStorage.getItem("username"), password: localStorage.getItem("password") })
+    }
+  }, [])
+
   return (
     <main className="flex min-h-screen flex-col 
     items-center 
@@ -92,7 +100,7 @@ export default function Home() {
               <h1 className="flex flex-row-reverse my-2 text-stone-50 mr-2">Hi, {loginCredentials.username} </h1>
             ) : (null)
           }
-          
+
           {
             loginCredentials.username != '' ? (
               <div className="flex self-center gap-2 mr-8 ">
@@ -100,8 +108,10 @@ export default function Home() {
               </div>
             ) : (
               <div className="flex self-center gap-2 ">
-                <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('login') }}>Login</button>
-                <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('register') }}>Register</button>
+                {/* <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('login') }}>Login</button> */}
+                {/* <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('register') }}>Register</button> */}
+                <Link href='/login' className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300">Login</Link>
+                <Link href='/register' className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300">Register</Link>
               </div>
             )
 
@@ -114,16 +124,16 @@ export default function Home() {
 
       {home && <HomeScreen imageUrl={imageUrl} setBefore={setBefore} setHome={setHome} hasUploaded={hasUploaded} setHasUploaded={setHasUploaded}
         register={register} setRegister={setRegister} setLogin={setLogin} loginCredentials={loginCredentials} setView={setView} setViewImageId={setViewImageId} />}
-      {view && <ViewImage viewImageId={viewImageId} loginCredentials={loginCredentials} setHome={setHome} setView={setView}/>}
-      {}
+      {view && <ViewImage viewImageId={viewImageId} loginCredentials={loginCredentials} setHome={setHome} setView={setView} />}
+
       {before && <UploadScreen setImageUrl={setImageUrl} setBefore={setBefore} setLoading={setLoading}
         setHome={setHome} setHasUploaded={setHasUploaded} loginCredentials={loginCredentials} />}
 
       {loading && <LoadingScreen />}
 
-      {register && <RegisterScreen setRegister={setRegister} setHome={setHome} />}
-      {login && <LoginScreen setLogin={setLogin} setHome={setHome} setLoginCredentials={setLoginCredentials} />}
-      
+      {/* {register && <RegisterScreen setRegister={setRegister} setHome={setHome} />} */}
+      {/* {login && <LoginScreen setLogin={setLogin} setHome={setHome} setLoginCredentials={setLoginCredentials} />} */}
+
     </main>
   )
 }
