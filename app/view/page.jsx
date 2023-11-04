@@ -151,7 +151,7 @@ export default function Page() {
                     </div>
                 </div>
 
-                <Image cloudName="dnyt3b1h3" publicId={viewUrl.replace('/upload', '/upload/w_600')} className="rounded-xl my-4" />
+                <Image cloudName="dnyt3b1h3" publicId={viewUrl.replace('/upload', '/upload/w_600')} className="rounded-xl my-4" alt = "noImage.svg"/>
                 <div className="flex flex-col mb-6 ">
                     <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                         <input className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
