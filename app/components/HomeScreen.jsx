@@ -62,11 +62,11 @@ export default function HomeScreen({ imageUrl, setHome, hasUploaded, loginCreden
             {hasUploaded ? (
                 <div className="flex flex-col items-center">
                     <div className="flex w-full justify-between">
-                        <img src="green_check2.png" className="mr-auto w-16" />
+                        <img src="green_check2.png" className="mr-auto w-16" alt = "noImage.svg"/>
                     </div>
 
                     <h1 className="font-semibold font-poppins text-stone-900 text-2xl my-4">Uploaded Successfully!</h1>
-                    <Image cloudName="dnyt3b1h3" publicId={imageUrl} className="rounded-xl my-4" />
+                    <Image cloudName="dnyt3b1h3" publicId={imageUrl} className="rounded-xl my-4" alt = "noImage.svg"/>
                     <div className="flex justify-between bg-gray-200 rounded-xl px-2 py-1 border-2 border-gray-300 space-x-12">
                         <input className="bg-inherit w-96 text-ellipsis border focus:border-transparent focus:outline-none" type="text" value={imageUrl} id="myInput" readOnly />
                         <button className="bg-blue-500 rounded-2xl p-4 text-white cursor-pointer" onClick={() => copyInput()}>Copy Link</button>
@@ -84,7 +84,7 @@ export default function HomeScreen({ imageUrl, setHome, hasUploaded, loginCreden
             <div className="grid gap-2 mb-8 md:grid-cols-2 xl:grid-cols-8">
                 {allImages.map((item, index) => (
                     <div className="relative m-auto shadow-xl" key={index}>
-                        <Image cloudName="dnyt3b1h3" publicId={item.imageLink.replace('/upload', '/upload/w_300')} key={index} className="w-full h-full object-fit-contain" />
+                        <Image cloudName="dnyt3b1h3" publicId={item.imageLink.replace('/upload', '/upload/w_300')} key={index} className="w-full h-full object-fit-contain" alt = "noImage.svg"/>
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 bg-black bg-opacity-50 cursor-pointer hover:opacity-100" onClick={() => redirectView(item._id)}>
                             <span className="text-white">{item.label}</span>
                             <div className="absolute bottom-0 right-0 text-white text-xs">
