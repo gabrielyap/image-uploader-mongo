@@ -28,6 +28,8 @@ export default function Page() {
             if (response.status === 200) {
               // Successful register
               console.log("response.data: ", response.data)
+              localStorage.setItem("username", formData.username)
+              localStorage.setItem("password", formData.password)
               window.location = '/'
               //handleBack()
             } else {
