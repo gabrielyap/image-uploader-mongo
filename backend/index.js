@@ -191,7 +191,7 @@ app.patch("/api/comments/:id", passport.authenticate('local', { keepSessionInfo:
                 return [4 /*yield*/, image.save()];
             case 2:
                 _a.sent();
-                res.status(200).send("edited ".concat(id));
+                res.status(200).send("deleted ".concat(id));
                 return [3 /*break*/, 4];
             case 3:
                 res.status(400);
