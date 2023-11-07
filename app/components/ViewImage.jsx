@@ -32,11 +32,12 @@ export default function ViewImage({ viewImageId, loginCredentials, setHome, setV
         window.alert("Link copied!")
     }
     const handleDelete = async () => {
-        await Axios.delete(`http://localhost:8000/api/${viewImageId}`)
+        console.log(localStorage.getItem('username'))
+        console.log(localStorage.getItem('password'))
+        await Axios.post(`http://localhost:8000/api/${viewImageId}`, {username:'asd', password: 'asd'})
             .then((re) => {
                 window.alert("Image Deleted!")
-                setView(false)
-                setHome(true)
+                window.location = '/'
             })
             .catch((err) => {
                 window.alert(`Error: ${err}`)

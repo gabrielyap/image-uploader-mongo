@@ -185,18 +185,19 @@ app.patch("/api/comments/:id", function (req, res) { return __awaiter(void 0, vo
         }
     });
 }); });
-app.delete("/api/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+app.post("/api/:id", passport.authenticate('local', { keepSessionInfo: true }), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                id = req.params.id;
-                return [4 /*yield*/, Image.findByIdAndDelete(id)];
-            case 1:
-                _a.sent();
-                res.status(200).send("Deleted ".concat(id, " successfully"));
-                return [2 /*return*/];
+        if (req.isAuthenticated()) {
+            id = req.params.id;
+            console.log(req.user);
+            //await Image.findByIdAndDelete(id)
+            res.status(200).send("Deleted ".concat(id, " successfully"));
         }
+        else {
+            res.status(400);
+        }
+        return [2 /*return*/];
     });
 }); });
 app.post("/api/register", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
