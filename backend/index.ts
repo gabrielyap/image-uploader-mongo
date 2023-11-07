@@ -133,12 +133,11 @@ app.patch("/api/comments/:id", async (req: Request, res: Response) => {
 })
 
 app.post("/api/:id", passport.authenticate('local', {keepSessionInfo: true}), async (req: Request, res: Response) => {
-    if (req.isAuthenticated()){
+    if (req.isAuthenticated()){  // Authenticate protects the route from Postman, user needs both the username and password for this
         const { id } = req.params
         console.log(req.user)
-        //await Image.findByIdAndDelete(id)
+        await Image.findByIdAndDelete(id)
         res.status(200).send(`Deleted ${id} successfully`)
-        
     }
     else{
         res.status(400)

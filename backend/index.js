@@ -188,16 +188,21 @@ app.patch("/api/comments/:id", function (req, res) { return __awaiter(void 0, vo
 app.post("/api/:id", passport.authenticate('local', { keepSessionInfo: true }), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id;
     return __generator(this, function (_a) {
-        if (req.isAuthenticated()) {
-            id = req.params.id;
-            console.log(req.user);
-            //await Image.findByIdAndDelete(id)
-            res.status(200).send("Deleted ".concat(id, " successfully"));
+        switch (_a.label) {
+            case 0:
+                if (!req.isAuthenticated()) return [3 /*break*/, 2];
+                id = req.params.id;
+                console.log(req.user);
+                return [4 /*yield*/, Image.findByIdAndDelete(id)];
+            case 1:
+                _a.sent();
+                res.status(200).send("Deleted ".concat(id, " successfully"));
+                return [3 /*break*/, 3];
+            case 2:
+                res.status(400);
+                _a.label = 3;
+            case 3: return [2 /*return*/];
         }
-        else {
-            res.status(400);
-        }
-        return [2 /*return*/];
     });
 }); });
 app.post("/api/register", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {

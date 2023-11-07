@@ -41,7 +41,7 @@ export default function Page() {
         window.alert("Link copied!")
     }
     const handleDelete = async () => {
-        await Axios.delete(`http://localhost:8000/api/${viewImageId}`)
+        await Axios.post(`http://localhost:8000/api/${viewImageId}`, {username: localStorage.getItem('username'), password: localStorage.getItem('password')})
             .then((re) => {
                 window.alert("Image Deleted!")
                 window.location = '/'
