@@ -5,9 +5,6 @@ import { Image } from "cloudinary-react"
 import UploadScreen from "./components/UploadScreen"
 import LoadingScreen from "./components/LoadingScreen"
 import HomeScreen from "./components/HomeScreen"
-import RegisterScreen from "./components/RegisterScreen"
-import LoginScreen from "./components/LoginScreen"
-import ViewImage from "./components/ViewImage"
 import Link from 'next/link'
 
 
@@ -85,7 +82,7 @@ export default function Home() {
         <div className="flex gap-2" >
           <img className="w-16 h-16 ml-4 hover:cursor-pointer" src="camera-flat.png" alt="logo" onClick={() => { redirectButtons('home') }} />
           <div className="flex self-center text-2xl font-semibold text-stone-50 dark:text-white hover:cursor-pointer " onClick={() => { redirectButtons('home') }}> Mongo Museum</div>
-          <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300 font-semibold" onClick={() => { redirectButtons('before') }}>New Post</button>
+          <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300 font-semibold self-center" onClick={() => { redirectButtons('before') }}>New Post</button>
         </div>
 
         <div className="flex self-center gap-2 mr-8 ">
