@@ -51,7 +51,7 @@ export default function Page() {
             })
     }
     const handleEdit = async () => {
-        await Axios.put(`http://localhost:8000/api/${viewImageId}`, { label: newLabel })
+        await Axios.put(`http://localhost:8000/api/${viewImageId}`, { label: newLabel, username: localStorage.getItem('username'), password: localStorage.getItem('password')})
             .then((re) => {
                 setViewLabel(newLabel)
                 setShowEditForm(false)
@@ -62,7 +62,7 @@ export default function Page() {
     }
     const handleComment = async () => {
         const date = new Date().toLocaleString()
-        await Axios.put(`http://localhost:8000/api/comments/${viewImageId}`, { content: newComment, author: loginCredentials.username, time: date })
+        await Axios.put(`http://localhost:8000/api/comments/${viewImageId}`, { content: newComment, username: localStorage.getItem('username'), password: localStorage.getItem('password'),  time: date })
             .then((re) => {
                 setNewComment('')
                 deconstructImage(viewImageId)
@@ -73,7 +73,7 @@ export default function Page() {
     }
 
     const handleDeleteComment = async (index) => {
-        await Axios.patch(`http://localhost:8000/api/comments/${viewImageId}`, { commentIndex: index })
+        await Axios.patch(`http://localhost:8000/api/comments/${viewImageId}`, { commentIndex: index, username: localStorage.getItem('username'), password: localStorage.getItem('password')})
             .then((re) => {
                 console.log("re:", re)
                 deconstructImage(viewImageId)
