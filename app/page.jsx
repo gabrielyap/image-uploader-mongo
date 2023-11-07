@@ -5,9 +5,6 @@ import { Image } from "cloudinary-react"
 import UploadScreen from "./components/UploadScreen"
 import LoadingScreen from "./components/LoadingScreen"
 import HomeScreen from "./components/HomeScreen"
-import RegisterScreen from "./components/RegisterScreen"
-import LoginScreen from "./components/LoginScreen"
-import ViewImage from "./components/ViewImage"
 import Link from 'next/link'
 
 
