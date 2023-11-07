@@ -104,7 +104,7 @@ export default function Home() {
                 <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300 font-semibold" onClick={() => { handleLogout() }}>Logout</button>
               </div>
             ) : (
-              <div className="flex self-center gap-2 ">
+              <div className="flex self-center gap-2 self-center">
                 {/* <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('login') }}>Login</button> */}
                 {/* <button className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300" onClick={() => { redirectButtons('register') }}>Register</button> */}
                 <Link href='/login' className="bg-green-600 rounded-xl p-4 text-white cursor-pointer hover:text-emerald-300 font-semibold">Login</Link>

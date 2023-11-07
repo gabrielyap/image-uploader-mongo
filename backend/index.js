@@ -126,18 +126,19 @@ app.get("/api/:id", function (req, res) { return __awaiter(void 0, void 0, void 
         }
     });
 }); });
-app.put("/api/comments/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+app.put("/api/comments/:id", passport.authenticate('local', { keepSessionInfo: true }), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id, image, comment;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                if (!req.isAuthenticated()) return [3 /*break*/, 3];
                 id = req.params.id;
                 return [4 /*yield*/, Image.findById(id)
                     //const comment = new Comment({content: req.body.comment, author: req.body.author})
                 ];
             case 1:
                 image = _a.sent();
-                comment = { content: req.body.content, author: req.body.author, time: req.body.time };
+                comment = { content: req.body.content, author: req.body.username, time: req.body.time };
                 if (req.body.author == "") {
                     comment.author = "Anonymous";
                 }
@@ -148,29 +149,39 @@ app.put("/api/comments/:id", function (req, res) { return __awaiter(void 0, void
                 //await comment.save()
                 _a.sent();
                 res.status(200).send("edited ".concat(id));
-                return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 3:
+                res.status(400);
+                _a.label = 4;
+            case 4: return [2 /*return*/];
         }
     });
 }); });
-app.put("/api/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+app.put("/api/:id", passport.authenticate('local', { keepSessionInfo: true }), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                if (!req.isAuthenticated()) return [3 /*break*/, 2];
                 id = req.params.id;
                 return [4 /*yield*/, Image.findByIdAndUpdate(id, { label: req.body.label })];
             case 1:
                 _a.sent();
                 res.status(200).send("edited ".concat(id));
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                res.status(400);
+                _a.label = 3;
+            case 3: return [2 /*return*/];
         }
     });
 }); });
-app.patch("/api/comments/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+app.patch("/api/comments/:id", passport.authenticate('local', { keepSessionInfo: true }), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id, image;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                if (!req.isAuthenticated()) return [3 /*break*/, 3];
                 id = req.params.id;
                 return [4 /*yield*/, Image.findById(id)];
             case 1:
@@ -180,22 +191,45 @@ app.patch("/api/comments/:id", function (req, res) { return __awaiter(void 0, vo
                 return [4 /*yield*/, image.save()];
             case 2:
                 _a.sent();
-                res.status(200).send("edited ".concat(id));
-                return [2 /*return*/];
+                res.status(200).send("deleted ".concat(id));
+                return [3 /*break*/, 4];
+            case 3:
+                res.status(400);
+                _a.label = 4;
+            case 4: return [2 /*return*/];
         }
     });
 }); });
-app.delete("/api/:id", function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+app.post("/api/login", passport.authenticate('local', { keepSessionInfo: true }), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        if (req.isAuthenticated()) {
+            console.log('req.session in login: ', req.session);
+            res.status(200).json({ isAuthenticated: req.isAuthenticated(), user: req.user });
+            //res.json({isAuthenticated: req.isAuthenticated(), user: req.user });
+        }
+        else {
+            res.status(400);
+        }
+        return [2 /*return*/];
+    });
+}); });
+app.post("/api/:id", passport.authenticate('local', { keepSessionInfo: true }), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var id;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                if (!req.isAuthenticated()) return [3 /*break*/, 2];
                 id = req.params.id;
+                console.log(req.user);
                 return [4 /*yield*/, Image.findByIdAndDelete(id)];
             case 1:
                 _a.sent();
                 res.status(200).send("Deleted ".concat(id, " successfully"));
-                return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 2:
+                res.status(400);
+                _a.label = 3;
+            case 3: return [2 /*return*/];
         }
     });
 }); });
@@ -221,19 +255,6 @@ app.post("/api/register", function (req, res) { return __awaiter(void 0, void 0,
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
-    });
-}); });
-app.post("/api/login", passport.authenticate('local', { keepSessionInfo: true }), function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        if (req.isAuthenticated()) {
-            console.log('req.session in login: ', req.session);
-            res.status(200).json({ isAuthenticated: req.isAuthenticated(), user: req.user });
-            //res.json({isAuthenticated: req.isAuthenticated(), user: req.user });
-        }
-        else {
-            res.status(400);
-        }
-        return [2 /*return*/];
     });
 }); });
 app.get('/logout', function (req, res) {

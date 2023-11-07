@@ -102,40 +102,71 @@ app.get("/api/:id", async (req: Request, res: Response) => {
     res.json(image)
 })
 
-app.put("/api/comments/:id", async (req: Request, res: Response) => {
-    const { id } = req.params
-    const image = await Image.findById(id)
-    //const comment = new Comment({content: req.body.comment, author: req.body.author})
-
-    const comment = {content: req.body.content, author: req.body.author, time: req.body.time}
-    if (req.body.author == ""){
-        comment.author = "Anonymous"
+app.put("/api/comments/:id", passport.authenticate('local', {keepSessionInfo: true}), async (req: Request, res: Response) => {
+    if (req.isAuthenticated()){
+        const { id } = req.params
+        const image = await Image.findById(id)
+        //const comment = new Comment({content: req.body.comment, author: req.body.author})
+    
+        const comment = {content: req.body.content, author: req.body.username, time: req.body.time}
+        if (req.body.author == ""){
+            comment.author = "Anonymous"
+        }
+        image.comments.push(comment)
+        //await comment.save()
+        await image.save()
+        res.status(200).send(`edited ${id}`)
+    } else{
+        res.status(400)
     }
-    image.comments.push(comment)
-    //await comment.save()
-    await image.save()
-    res.status(200).send(`edited ${id}`)
+  
 })
 
-app.put("/api/:id", async (req: Request, res: Response) => {
-    const { id } = req.params
-    await Image.findByIdAndUpdate(id, { label: req.body.label })
-    res.status(200).send(`edited ${id}`)
+app.put("/api/:id", passport.authenticate('local', {keepSessionInfo: true}), async (req: Request, res: Response) => {
+    if (req.isAuthenticated()){
+        const { id } = req.params
+        await Image.findByIdAndUpdate(id, { label: req.body.label })
+        res.status(200).send(`edited ${id}`)
+    }
+    else{
+        res.status(400)
+    }
 })
 
-app.patch("/api/comments/:id", async (req: Request, res: Response) => {
-    const { id } = req.params
-    const image = await Image.findById(id)
-    image.comments.splice(req.body.commentIndex, 1)
-    console.log(id, req.body)
-    await image.save()
-    res.status(200).send(`edited ${id}`)
+app.patch("/api/comments/:id", passport.authenticate('local', {keepSessionInfo: true}), async (req: Request, res: Response) => {
+    if (req.isAuthenticated()){
+        const { id } = req.params
+        const image = await Image.findById(id)
+        image.comments.splice(req.body.commentIndex, 1)
+        console.log(id, req.body)
+        await image.save()
+        res.status(200).send(`deleted ${id}`)
+    } else {
+        res.status(400)
+    }
 })
 
-app.delete("/api/:id", async (req: Request, res: Response) => {
-    const { id } = req.params
-    await Image.findByIdAndDelete(id)
-    res.status(200).send(`Deleted ${id} successfully`)
+app.post("/api/login", passport.authenticate('local', {keepSessionInfo: true}), async (req: Request, res: Response) => {
+    if (req.isAuthenticated()){
+        console.log('req.session in login: ', req.session)
+        res.status(200).json({isAuthenticated: req.isAuthenticated(), user: req.user });
+        //res.json({isAuthenticated: req.isAuthenticated(), user: req.user });
+    }
+    else {
+        res.status(400)
+    }
+})
+
+app.post("/api/:id", passport.authenticate('local', {keepSessionInfo: true}), async (req: Request, res: Response) => {
+    if (req.isAuthenticated()){  // Authenticate protects the route from Postman, user needs both the username and password for this
+        const { id } = req.params
+        console.log(req.user)
+        await Image.findByIdAndDelete(id)
+        res.status(200).send(`Deleted ${id} successfully`)
+    }
+    else{
+        res.status(400)
+    }
 })
 
 app.post("/api/register", async (req: Request, res: Response) => {
@@ -153,16 +184,7 @@ app.post("/api/register", async (req: Request, res: Response) => {
     }
 })
 
-app.post("/api/login", passport.authenticate('local', {keepSessionInfo: true}), async (req: Request, res: Response) => {
-    if (req.isAuthenticated()){
-        console.log('req.session in login: ', req.session)
-        res.status(200).json({isAuthenticated: req.isAuthenticated(), user: req.user });
-        //res.json({isAuthenticated: req.isAuthenticated(), user: req.user });
-    }
-    else {
-        res.status(400)
-    }
-})
+
 app.get('/logout', (req: Request, res: Response) => {
     req.logout();
     res.json({ message: 'Logged out' });
