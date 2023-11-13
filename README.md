@@ -28,7 +28,7 @@
 ![screenshot](./public/MMUpload.jpg)
 ![screenshot](./public/MMRegister.jpg)
 
-Website under maintenance.
+Live demo: https://65527fde16e2c00008e6f7c2--calm-taiyaki-5cd409.netlify.app/
 
 This is a fullstack image-hosting and sharing project. I built the backend with custom RESTful API to handle CRUD functions. I used MongoDB Atlas to store images and users in a cloud, and used Axios to create, read, update, and delete these images and users. For the client, I used Next.js for setup, React.js for the website, and used Tailwind for styling. I deployed the backend using Render, and the frontend using Vercel.
 
