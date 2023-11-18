@@ -135,7 +135,7 @@ export default function Page() {
                                 <button className="block w-full text-left py-2 px-4 hover:bg-gray-100" onClick={() => copyLink()}>
                                     Copy Link
                                 </button>
-                                {(viewAuthor == loginCredentials.username || viewAuthor == null) ? (
+                                {(viewAuthor == loginCredentials.username || viewAuthor == null || viewAuthor == "") ? (
                                     <div>
                                         <button className="block w-full text-left py-2 px-4 hover:bg-gray-100" onClick={() => openEditForm()}>
                                             Edit
